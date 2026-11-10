@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Home screen widget: today's screen time and the three most used apps. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/widget_background"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/widget_today"
+        android:textColor="@color/widget_secondary"
+        android:textSize="13sp" />
+
+    <TextView
+        android:id="@+id/widget_total"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/widget_primary"
+        android:textSize="28sp" />
+
+    <TextView
+        android:id="@+id/widget_app1"
+        style="@style/WidgetAppRow" />
+
+    <TextView
+        android:id="@+id/widget_app2"
+        style="@style/WidgetAppRow" />
+
+    <TextView
+        android:id="@+id/widget_app3"
+        style="@style/WidgetAppRow" />
+</LinearLayout>

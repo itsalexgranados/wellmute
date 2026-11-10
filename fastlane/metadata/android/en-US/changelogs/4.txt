@@ -1,0 +1,1 @@
+First public version: day, week, month and year screen time with app categories, app timers, usage reminders, Focus mode with insights, and Bedtime mode with allowed apps and blocked apps. No internet permission.

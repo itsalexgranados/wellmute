@@ -1,0 +1,559 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name" translatable="false">Wellmute</string>
+
+    <!-- Navigation -->
+    <string name="nav_back">Back</string>
+    <string name="nav_settings">Settings</string>
+
+    <!-- Home -->
+    <string name="home_title">Wellmute</string>
+    <string name="home_today">Today</string>
+    <string name="home_unlocks">Unlocks</string>
+    <string name="home_notifications">Notifications</string>
+    <string name="home_section_disconnect">Take back your time</string>
+    <string name="home_section_interruptions">Mute the noise</string>
+    <string name="home_modes">Modes</string>
+    <string name="home_modes_summary">Do Not Disturb and its schedules, in Android\'s settings</string>
+    <string name="opens_android_settings">Opens Android\'s settings</string>
+
+    <!-- Features -->
+    <string name="dashboard_title">Dashboard</string>
+    <string name="dashboard_summary">Screen time, notifications and usage history</string>
+    <string name="bedtime_title">Bedtime mode</string>
+    <!-- The Android mode's name in Settings → Modes, so it's clear which app made it. -->
+    <string name="bedtime_mode_name">Bedtime mode - Wellmute</string>
+    <string name="bedtime_summary">Grayscale, dark theme and Do Not Disturb at night</string>
+    <string name="focus_title">Focus mode</string>
+    <string name="focus_summary">Pause distracting apps when you need time to focus</string>
+
+
+    <!-- Dashboard -->
+    <string name="dashboard_screen_time">Screen time</string>
+    <string name="dashboard_other_apps">Other apps</string>
+    <string name="dashboard_share_of_day">%1$d%% of the day</string>
+    <string name="dashboard_donut_description">Screen time %1$s. Most used: %2$s</string>
+    <string name="dashboard_previous">Previous</string>
+    <string name="dashboard_next">Next</string>
+    <string name="dashboard_pick_date">Choose a date</string>
+    <string name="view_day">Day</string>
+    <string name="view_week">Week</string>
+    <string name="view_month">Month</string>
+    <string name="view_year">Year</string>
+    <string name="period_this_week">This week</string>
+    <string name="period_last_week">Last week</string>
+    <string name="period_week_of">Week of %1$s</string>
+    <string name="period_this_month">This month</string>
+    <string name="period_last_month">Last month</string>
+    <string name="period_this_year">This year</string>
+    <string name="period_last_year">Last year</string>
+    <string name="period_daily_average">Daily average</string>
+    <string name="period_total">%1$s in total</string>
+    <string name="period_show_week">Whole week</string>
+    <string name="period_show_month">Whole month</string>
+    <string name="period_show_year">Whole year</string>
+    <string name="period_week_averages">The week averages %1$s a day</string>
+    <string name="period_month_averages">The month averages %1$s a day</string>
+    <string name="period_this_month_average">%1$s a day on average</string>
+    <string name="search_apps">Search apps</string>
+    <string name="search_clear">Clear search</string>
+    <string name="reminders_title">Usage reminders</string>
+    <string name="reminders_summary">A gentle nudge while you use an app</string>
+    <string name="reminders_intro">While you use an app, a small bubble floats at the top of the screen every so often to tell you how long you\'ve used it today. It fades away after a few seconds, makes no sound and doesn\'t get in the way of your taps.</string>
+    <string name="reminders_switch">Remind me while I use an app</string>
+    <string name="reminders_switch_summary">Off by default</string>
+    <string name="reminders_interval">Remind me every</string>
+    <string name="timers_title">App timers</string>
+    <string name="timers_summary">Daily limits for the apps you choose</string>
+    <string name="timers_intro">Set a daily limit for any app. When its time runs out, the app is paused until midnight, when every limit starts again. You can also set them from the Dashboard.</string>
+    <string name="timers_warn">Warn 5 minutes before</string>
+    <string name="timers_warn_summary">A small bubble over the app when it has 5 minutes left today, for every timer</string>
+    <string name="timers_section">Your timers</string>
+    <string name="timers_add">Add timer</string>
+    <string name="timers_add_title">Add a timer</string>
+    <string name="timers_add_hint">Choose an app to set its daily limit.</string>
+    <string name="reminders_preview">It looks like this</string>
+    <string name="reminders_preview_app">Calculator</string>
+    <string name="reminders_note">Reminders count each app\'s total for the day, so leaving and coming back doesn\'t start again from zero. There are no reminders for Phone, Settings, your home screen and other always-allowed apps.</string>
+    <string name="reminders_needs_accessibility">Usage reminders need Wellmute\'s accessibility service to know which app is open.</string>
+    <string name="reminders_none_yet">No reminder yet since Wellmute was last started.</string>
+    <plurals name="reminders_last">
+        <item quantity="one">Last reminder: %1$s, %2$d minute, at %3$s</item>
+        <item quantity="other">Last reminder: %1$s, %2$d minutes, at %3$s</item>
+    </plurals>
+    <string name="reminders_not_shown">The bubble couldn\'t be shown: check that Wellmute\'s accessibility service is on.</string>
+    <!-- Short, so the bubble stays one line: "Calculator · 1 h 10 min today". -->
+    <string name="reminders_bubble">%1$s · %2$s today</string>
+    <!-- Comparisons next to an average or total, like "⬇ 19% from last week". -->
+    <string name="trend_week">%1$d%% from last week</string>
+    <string name="trend_month">%1$d%% from last month</string>
+    <string name="trend_year">%1$d%% from last year</string>
+    <string name="trend_weekday">%1$d%% from last %2$s</string>
+    <string name="trend_same_week">Same as last week</string>
+    <string name="trend_same_month">Same as last month</string>
+    <string name="trend_same_year">Same as last year</string>
+    <string name="trend_same_weekday">Same as last %1$s</string>
+    <string name="trend_down">Down %1$s</string>
+    <string name="trend_up">Up %1$s</string>
+    <!-- App categories, for splitting screen time in charts. -->
+    <string name="category_social">Social</string>
+    <string name="category_entertainment">Entertainment</string>
+    <string name="category_games">Games</string>
+    <string name="category_productivity">Productivity</string>
+    <string name="category_other">Other</string>
+    <string name="apps_all">All apps</string>
+    <plurals name="category_app_count">
+        <item quantity="one">%1$d app</item>
+        <item quantity="other">%1$d apps</item>
+    </plurals>
+    <string name="category_show_apps">Show apps</string>
+    <string name="category_hide_apps">Hide apps</string>
+    <string name="apps_by_category">By category</string>
+    <string name="first_pickup">First pickup</string>
+    <string name="first_pickup_average">%1$s on average</string>
+    <string name="longest_session">Longest session</string>
+    <string name="after_bedtime">After Bedtime use</string>
+    <string name="after_bedtime_last_night">Last night\'s after Bedtime use</string>
+    <string name="after_bedtime_previous_night">Previous night\'s Bedtime use</string>
+    <string name="during_focus">Use during Focus</string>
+    <string name="after_bedtime_average">%1$s a day on average</string>
+    <string name="app_detail_category">Category</string>
+    <string name="app_detail_category_automatic">Automatic (%1$s)</string>
+    <string name="app_detail_category_hint">Used to split screen time by kind of app in the Dashboard.</string>
+    <!-- Label of the dashed average line on bar charts. -->
+    <string name="chart_average">avg</string>
+    <string name="period_no_usage">No app usage recorded in this period.</string>
+    <string name="period_chart_days">Screen time for each day. The dashed line is the daily average, %1$s.</string>
+    <string name="period_chart_months">Daily average for each month. The dashed line is the daily average for the year, %1$s.</string>
+    <string name="dashboard_week_title">Last 7 days</string>
+    <string name="dashboard_week_summary">%1$s in total · %2$s a day on average</string>
+    <string name="dashboard_apps">Apps</string>
+    <string name="dashboard_no_usage">No app usage recorded for this day.</string>
+    <string name="app_detail_title">App usage</string>
+    <string name="app_detail_show_day">Whole day</string>
+    <string name="app_detail_day_total">%1$s in the whole day</string>
+    <string name="app_detail_year_averages">A day that month · the year averages %1$s</string>
+    <string name="metric_screen_time">Screen time</string>
+    <string name="metric_notifications">Notifications</string>
+    <string name="metric_opens">Opens</string>
+    <plurals name="notification_count">
+        <item quantity="one">%1$d notification</item>
+        <item quantity="other">%1$d notifications</item>
+    </plurals>
+    <plurals name="open_count">
+        <item quantity="one">%1$d open</item>
+        <item quantity="other">%1$d opens</item>
+    </plurals>
+
+    <!-- App timers -->
+    <string name="timer_dialog_title">Timer for %1$s</string>
+    <string name="timer_dialog_limit">Daily limit</string>
+    <string name="timer_dialog_less">Less time</string>
+    <string name="timer_dialog_more">More time</string>
+    <string name="timer_preset_20m">20 min</string>
+    <string name="timer_preset_30m">30 min</string>
+    <string name="timer_preset_1h">1 h</string>
+    <string name="timer_preset_2h">2 h</string>
+    <string name="timer_dialog_save">Set timer</string>
+    <string name="timer_dialog_delete">Delete timer</string>
+    <string name="timer_dialog_cancel">Cancel</string>
+    <string name="timer_needs_accessibility">To pause this app when its time runs out, turn on Wellmute in Settings → Accessibility. It only learns which app is in front, never what\'s on your screen.</string>
+    <string name="timer_open_accessibility">Open accessibility settings</string>
+    <string name="timer_set_description">Set app timer</string>
+    <string name="timer_left">%1$s left</string>
+    <string name="timer_paused">Paused</string>
+    <string name="timer_limit">Timer %1$s</string>
+    <string name="app_detail_timer">App timer</string>
+    <string name="app_detail_no_timer">No timer</string>
+    <string name="timer_warning_bubble">%1$s · %2$d min left today</string>
+
+    <!-- Focus mode -->
+    <string name="focus_on">Focus mode is on</string>
+    <string name="focus_off">Focus mode is off</string>
+    <string name="focus_on_break">On a break until %1$s</string>
+    <string name="focus_off_summary">Pause the apps that distract you, now or on a schedule.</string>
+    <plurals name="focus_on_summary">
+        <item quantity="one">%1$d distracting app is paused.</item>
+        <item quantity="other">%1$d distracting apps are paused.</item>
+    </plurals>
+    <string name="focus_no_apps">Choose your distracting apps below.</string>
+    <string name="focus_turn_on">Turn on now</string>
+    <string name="focus_turn_off">Turn off</string>
+    <string name="focus_end_break">End break</string>
+    <string name="focus_take_break">Take a break</string>
+    <string name="focus_break_minutes">%1$d min</string>
+    <string name="focus_schedule">Schedule</string>
+    <string name="focus_schedule_switch">Turn on automatically</string>
+    <string name="focus_starts">Starts</string>
+    <string name="focus_ends">Ends</string>
+    <string name="focus_ends_next_day">Ends (next day)</string>
+    <string name="focus_time_ok">OK</string>
+    <string name="focus_insights_title">Focus insights</string>
+    <string name="focus_insights_summary">Time in Focus, breaks, blocked apps and what you used</string>
+    <string name="focus_insights_empty">Focus mode wasn\'t on at this time. Once you use it, you\'ll see here how long it was on, how much of it you stayed off your phone, your breaks, the apps it stopped and the ones you used.</string>
+    <string name="focus_insights_time">Time in Focus</string>
+    <string name="focus_insights_phone_free">%1$d%% of it without using your phone</string>
+    <string name="focus_insights_longest_free">Longest stretch without your phone</string>
+    <string name="focus_insights_breaks">Breaks</string>
+    <string name="focus_insights_breaks_value">%1$d · %2$s</string>
+    <string name="focus_insights_breaks_early">Breaks ended early</string>
+    <string name="focus_insights_blocked">Blocked attempts</string>
+    <string name="focus_insights_apps">Apps you used during Focus</string>
+    <string name="focus_insights_blocked_apps">Apps Focus stopped</string>
+    <plurals name="focus_insights_times">
+        <item quantity="one">%1$d time</item>
+        <item quantity="other">%1$d times</item>
+    </plurals>
+    <string name="focus_breaks">Breaks</string>
+    <string name="focus_break_warning">Warn before a break ends</string>
+    <string name="focus_break_warning_summary">A small bubble 1 minute before your distracting apps are paused again</string>
+    <string name="focus_break_ending_bubble">1 minute left of your break</string>
+    <string name="focus_apps">Distracting apps</string>
+    <string name="focus_apps_hint">These apps are paused while Focus mode is on, and their notifications are hidden.</string>
+    <string name="focus_needs_accessibility">To pause distracting apps, turn on Wellmute in Settings → Accessibility. It only learns which app is in front, never what\'s on your screen.</string>
+    <string name="focus_pause_title">Focus mode is on</string>
+    <string name="focus_pause_message">%1$s is paused so you can focus.</string>
+    <string name="focus_pause_hint">To use it now, take a short break or turn off Focus mode in Wellmute.</string>
+    <string name="focus_pause_break">Take a %1$d-minute break</string>
+
+    <!-- Bedtime mode -->
+    <string name="bedtime_on">Bedtime mode is on</string>
+    <string name="bedtime_off">Bedtime mode is off</string>
+    <string name="bedtime_explanation">Set it up here. Android applies it as a system mode, so it keeps working even when Wellmute isn\'t running, and you can also switch it from Quick Settings.</string>
+    <string name="bedtime_turn_on">Turn on now</string>
+    <string name="bedtime_turn_off">Turn off</string>
+    <string name="bedtime_effects">While it\'s on</string>
+    <string name="bedtime_dnd">Do Not Disturb</string>
+    <string name="bedtime_apps">Allowed notifications</string>
+    <string name="bedtime_blocked">Blocked apps</string>
+    <string name="bedtime_blocked_none">None</string>
+    <string name="bedtime_use_warning">Warn before the 5 minutes end</string>
+    <string name="bedtime_use_warning_summary">A small bubble 1 minute before the blocked apps are blocked again</string>
+    <string name="bedtime_use_ending_bubble">1 minute until Bedtime block resumes</string>
+    <plurals name="bedtime_blocked_count">
+        <item quantity="one">%1$d app blocked</item>
+        <item quantity="other">%1$d apps blocked</item>
+    </plurals>
+    <string name="bedtime_blocked_help">While Bedtime is on, these apps can\'t be opened: a pause screen covers them, like in Focus mode, and \"Use it for 5 minutes\" opens all of them for 5 minutes. Whether their notifications come through is set in Allowed notifications.</string>
+    <string name="bedtime_pause_title">Bedtime mode is on</string>
+    <string name="bedtime_pause_message">%1$s is blocked during Bedtime.</string>
+    <string name="bedtime_pause_hint">It unblocks when Bedtime ends.</string>
+    <plurals name="bedtime_pause_use">
+        <item quantity="one">Use it for %1$d minute</item>
+        <item quantity="other">Use it for %1$d minutes</item>
+    </plurals>
+    <string name="bedtime_allow_only">Only let chosen apps through</string>
+    <string name="bedtime_allow_only_summary">Hides notifications from every other app during Bedtime</string>
+    <string name="bedtime_apps_all">All apps follow Do Not Disturb</string>
+    <string name="bedtime_apps_allow_help">When this is on, only the apps you tick can reach you during Bedtime. Wellmute hides every other app\'s notifications as they arrive, even apps that Android\'s Modes lets through. Calls, alarms, Phone and Settings always get through.\n\nThe apps you tick show their notifications, but they only make a sound if Android\'s Do Not Disturb lets them through too, for example if they\'re in its list of apps that can interrupt. Otherwise they show silently.</string>
+    <plurals name="bedtime_apps_allowed">
+        <item quantity="one">Only %1$d app allowed</item>
+        <item quantity="other">Only %1$d apps allowed</item>
+    </plurals>
+    <string name="bedtime_deliver">Deliver them when Bedtime ends</string>
+    <string name="bedtime_deliver_summary">Hidden notifications come back, as they were, when Bedtime ends. Turn off to delete the notifications instead (recommended: on).</string>
+    <string name="bedtime_dnd_summary">Silences notifications and calls, following your Do Not Disturb settings</string>
+    <string name="bedtime_grayscale">Grayscale</string>
+    <string name="bedtime_grayscale_summary">Shows the screen in black and white</string>
+    <string name="bedtime_dim_wallpaper">Dim the wallpaper</string>
+    <string name="bedtime_dim_wallpaper_summary">Darkens your wallpaper so the screen glows less</string>
+    <string name="bedtime_dark_theme">Dark theme</string>
+    <string name="bedtime_dark_theme_summary">Switches Android, and apps that follow it, to dark colours</string>
+    <string name="bedtime_aod_off">Turn off the always-on display</string>
+    <string name="bedtime_aod_off_summary">Keeps the locked screen completely dark, with no clock or icons</string>
+    <string name="bedtime_only_while_charging">Only while charging</string>
+    <string name="bedtime_only_while_charging_summary">During the scheduled hours, turns on when you plug in your phone and off when you unplug it</string>
+    <string name="bedtime_end_with_alarm">Turn off with first alarm</string>
+    <string name="bedtime_end_with_alarm_summary">Ends Bedtime when your morning alarm rings, until the next night</string>
+    <string name="bedtime_sync_note">Bedtime is an Android system mode. Changes you make here also appear in Android\'s Modes settings, and changes made there show up here.</string>
+    <string name="bedtime_after_title">After it\'s done</string>
+    <string name="bedtime_after_help">If Bedtime ends early, because you unplugged the phone or your first alarm rang:</string>
+    <string name="bedtime_after_nothing">Nothing</string>
+    <string name="bedtime_after_nothing_summary">Everything goes back to normal</string>
+    <string name="bedtime_after_dnd">Do Not Disturb</string>
+    <string name="bedtime_after_dnd_summary">Turns on until Bedtime\'s scheduled end (%1$s), following your Do Not Disturb settings</string>
+    <string name="after_bedtime_mode">Do Not Disturb after Bedtime</string>
+    <string name="after_bedtime_mode_trigger">When Bedtime ends early</string>
+    <string name="bedtime_who_can_reach_you">Who can reach you</string>
+    <string name="bedtime_calls_from">Calls from</string>
+    <string name="bedtime_repeat_callers">Repeat callers</string>
+    <string name="bedtime_repeat_callers_summary">Let someone through if they call twice within 15 minutes</string>
+    <string name="bedtime_messages_from">Messages from</string>
+    <string name="bedtime_conversations">Priority conversations</string>
+    <string name="bedtime_conversations_summary">Conversations you marked as priority can get through</string>
+    <string name="conversations_manage">See and change priority conversations</string>
+    <string name="conversations_manage_summary">Opens Android\'s list of your priority conversations, where you can change or remove them. To add one, touch and hold one of its notifications and choose Priority.</string>
+    <string name="bedtime_sounds">Sounds that still play</string>
+    <string name="bedtime_alarms">Alarms</string>
+    <string name="bedtime_alarms_summary">Your alarms ring as usual</string>
+    <string name="bedtime_media">Media</string>
+    <string name="bedtime_media_summary">Music, videos and games can still play sound</string>
+    <string name="bedtime_touch_sounds">Touch sounds</string>
+    <string name="bedtime_touch_sounds_summary">Clicks from the keyboard, taps and the lock screen</string>
+    <string name="bedtime_reminders">Reminders</string>
+    <string name="bedtime_reminders_summary">Reminders you set in apps can make a sound</string>
+    <string name="bedtime_events">Calendar events</string>
+    <string name="bedtime_events_summary">Alerts for events in your calendar can make a sound</string>
+    <string name="bedtime_screen">Screen</string>
+    <string name="senders_anyone">Anyone</string>
+    <string name="senders_contacts">Contacts only</string>
+    <string name="senders_starred">Starred contacts only</string>
+    <string name="senders_nobody">Nobody</string>
+    <string name="summary_people_same">Calls and messages: %1$s</string>
+    <string name="summary_people">Calls: %1$s · Messages: %2$s</string>
+    <string name="summary_no_sounds">No sounds</string>
+    <string name="summary_every_day">Every day</string>
+    <string name="day_compare_less">%1$d%% less screen time than last %2$s</string>
+    <string name="day_compare_more">%1$d%% more screen time than last %2$s</string>
+    <string name="day_compare_same">About the same screen time as last %1$s</string>
+    <string name="day_compare_less_today">%1$d%% less screen time than last %2$s by this time</string>
+    <string name="day_compare_more_today">%1$d%% more screen time than last %2$s by this time</string>
+    <string name="day_compare_same_today">About the same screen time as last %1$s by this time</string>
+    <string name="display_title">Silenced notifications</string>
+    <string name="display_intro">Notifications silenced by Do Not Disturb never make a sound or vibrate. These options decide whether you can still see them. Calls and messages from people who can reach you are not affected.</string>
+    <string name="display_screen_off">When the screen is off</string>
+    <string name="display_dont_turn_on">Don\'t turn on the screen</string>
+    <string name="display_dont_turn_on_explain">Your phone stays dark when one arrives. Without this, the screen lights up briefly to show it.</string>
+    <string name="display_dont_wake">Don\'t wake for notifications</string>
+    <string name="display_dont_wake_explain">They don\'t appear on the always-on display, the dimmed clock screen you see while the phone is locked.</string>
+    <string name="display_screen_on">When the screen is on</string>
+    <string name="display_hide_badges">Hide notification dots on app icons</string>
+    <string name="display_hide_badges_explain">App icons on your home screen don\'t get the small dot that means something new is waiting.</string>
+    <string name="display_hide_status_bar">Hide status bar icons</string>
+    <string name="display_hide_status_bar_explain">No small app icon at the top of the screen, next to the clock, while you use your phone.</string>
+    <string name="display_dont_pop">Don\'t pop up on screen</string>
+    <string name="display_dont_pop_explain">No banner slides down from the top over the app you\'re using. You still find them when you swipe down.</string>
+    <string name="display_hide_from_shade">Hide from the pull-down shade</string>
+    <string name="display_hide_from_shade_explain">They don\'t show at all when you swipe down. They appear there once Do Not Disturb ends.</string>
+    <string name="display_implied_by_shade">Already hidden, because they\'re hidden from the pull-down shade.</string>
+    <string name="display_summary_hidden">Hidden completely</string>
+    <string name="display_summary_no_pop">No pop-ups</string>
+    <string name="display_summary_screen_off">screen stays off</string>
+    <string name="display_summary_no_dots">no dots</string>
+    <string name="display_summary_no_icons">no status bar icons</string>
+    <string name="display_summary_shown">Shown as usual, without sound</string>
+    <string name="summary_while_charging">Only while charging</string>
+    <string name="summary_no_screen_changes">No changes</string>
+    <string name="starred_title">Your starred contacts</string>
+    <string name="starred_permission_title">To see them here, allow access to your contacts first</string>
+    <string name="starred_permission_why">Wellmute only reads names, to show who your starred contacts are. It never changes, stores or shares your contacts.</string>
+    <string name="starred_permission_refused">Contacts access was refused. You can allow it in Wellmute\'s App info → Permissions → Contacts.</string>
+    <string name="starred_allow">Allow contacts access</string>
+    <string name="starred_open_settings">Open App info</string>
+    <string name="starred_none">You have no starred contacts yet.</string>
+    <string name="starred_hint">Tap a contact to open it in Contacts, where you can unstar it.</string>
+    <string name="starred_add">Add a starred contact</string>
+    <string name="bedtime_needs_access">Bedtime mode is a system mode, so Wellmute needs Do Not Disturb access to create and switch it.</string>
+
+    <!-- Import, silenced notifications, starred contacts and summaries -->
+    <string name="dnd_manual_only">Manual only</string>
+
+    <!-- First-launch setup -->
+    <string name="setup_welcome">Welcome to Wellmute</string>
+    <string name="setup_intro_time_title">Know where your time goes</string>
+    <string name="setup_intro_time_text">Screen time, unlocks and notifications for each app, by day, week, month and year.</string>
+    <string name="setup_intro_rest_title">Use your phone on your terms</string>
+    <string name="setup_intro_rest_text">App timers and Focus pause the apps that distract you. At night, Bedtime turns the screen gray and silences the rest.</string>
+    <string name="setup_intro_private_title">Private by design</string>
+    <string name="setup_intro_private_text">No internet access, no accounts, no ads. Everything stays on your phone, and the code is open source.</string>
+    <plurals name="setup_intro_private_next">
+        <item quantity="one">Next, Wellmute asks for %d permission and explains what it\'s for. You can skip it and allow it later in Settings. Notice that without all permissions, the app won\'t work properly.</item>
+        <item quantity="other">Next, Wellmute asks for %d permissions and explains what each is for. You can skip any of them and allow them later in Settings. Notice that without all permissions, the app won\'t work properly.</item>
+    </plurals>
+    <string name="setup_next">Next</string>
+    <string name="setup_skip_intro">Skip</string>
+    <string name="setup_set_up_permissions">Set up permissions</string>
+    <string name="setup_step">Step %1$d of %2$d</string>
+    <string name="setup_skip">Skip for now</string>
+    <string name="setup_back">Back</string>
+    <string name="setup_skip_title">Skip this permission?</string>
+    <string name="setup_skip_text">Without all permissions, Wellmute won\'t work properly. You can allow this one later in Settings → Permissions.</string>
+    <string name="setup_skip_confirm">Skip</string>
+    <string name="setup_skip_cancel">Cancel</string>
+    <string name="setup_restricted_how">How to allow it</string>
+    <string name="setup_restricted_help_title">Did Android say it\'s a restricted setting?</string>
+    <string name="setup_restricted_help_text">Android blocks this for apps installed from a file. Now that you\'ve seen that message, you can unblock it:\n\n1. Tap Open App info.\n2. Tap ⋮ at the top right, then Allow restricted settings, and confirm.\n3. Come back here and tap Allow again.\n\nYou only need to do this once: it unblocks the other permissions too.</string>
+    <string name="setup_not_now">Not now</string>
+    <string name="setup_all_set">You\'re all set</string>
+    <string name="setup_almost_set">Almost there</string>
+    <string name="setup_all_set_text">Everything Wellmute needs is allowed.</string>
+    <string name="setup_missing_text">Some features won\'t work until you allow what\'s missing. You can also do it later in Settings → Permissions.</string>
+    <string name="setup_open_wellmute">Open Wellmute</string>
+    <string name="setup_allow">Allow</string>
+    <string name="setup_granted">Allowed</string>
+    <string name="setup_restricted_hint_step">Installed from a file? Android may say this is a restricted setting and keep it greyed out. If so, tap the greyed-out switch once, then come back here.</string>
+    <string name="setup_restricted_hint">If Android says this setting is restricted, allow restricted settings first (see the card at the top).</string>
+    <string name="restricted_title">Installed from a file?</string>
+    <string name="restricted_why">Android blocks usage access, notification access and accessibility for apps installed from a file, until you allow restricted settings. Skip this if you\'ve already done it.</string>
+    <string name="restricted_steps">First tap Allow below on one of them and tap its greyed-out switch: Android says it\'s a restricted setting. Only then does App info offer the option: open it, tap ⋮ at the top right, then Allow restricted settings. Come back here afterwards.</string>
+    <string name="restricted_open_app_info">Open App info</string>
+    <string name="setup_usage_why">Needed for the dashboard and app timers: which apps you used today, and for how long.</string>
+    <string name="setup_usage_not">Not used for anything else. Wellmute never sees what you do inside apps.</string>
+    <string name="setup_notifications_why">Counts notifications per app, and hides notifications from paused apps and from the apps you silence during Bedtime. With it, Android also gives Do Not Disturb access, so Bedtime can run as a real Android mode, with its grayscale, dimmed wallpaper, dark theme and always-on display off.</string>
+    <string name="setup_notifications_not">Their content is never stored or shared. Only notifications you asked to see later are kept, until you see them. Wellmute doesn\'t change any other system setting.</string>
+    <string name="setup_post_notifications_why">Lets Wellmute send you its own notifications:</string>
+    <string name="setup_post_notifications_bedtime">Bedtime is on, and until when</string>
+    <string name="setup_post_notifications_focus">Focus mode is on, and until when</string>
+    <string name="setup_post_notifications_weekly">A summary of your screen time at the start of each week</string>
+    <string name="setup_post_notifications_not">Only these three, and you can turn each one off in Settings → Notifications. Wellmute never sends ads or nudges to open it.</string>
+    <string name="setup_optional">Optional</string>
+    <string name="setup_accessibility_why">Lets Wellmute pause apps when their timer runs out or Focus mode is on, and show usage reminders if you turn them on. It only learns which app is in front.</string>
+    <string name="setup_accessibility_not">It can\'t read what\'s on your screen, see what you type, or tap anything for you.</string>
+    <string name="setup_battery_why">Without this, Android may stop Wellmute in the background to save battery. Timers, Focus and Bedtime would then stop working reliably, and days of history could be lost, since Android only keeps about a week of usage records.</string>
+    <string name="setup_battery_not">Wellmute only wakes up for its schedules and timers; it doesn\'t run constantly.</string>
+    <string name="home_pausing_off">Pausing apps is off. Your app timers and Focus mode can\'t pause anything until Wellmute is turned on again in Settings → Accessibility. This can happen if the app was force-stopped.</string>
+
+    <!-- Home screen widget -->
+    <string name="widget_today">Today</string>
+    <string name="widget_description">Today\'s screen time and your most used apps</string>
+
+    <!-- Quick Settings tiles -->
+    <string name="tile_focus">Wellmute Focus</string>
+    <string name="tile_bedtime">Wellmute Bedtime</string>
+    <string name="tile_on">On</string>
+    <string name="tile_off">Off</string>
+    <string name="tile_on_break">On a break</string>
+
+    <!-- Pause screen -->
+    <string name="pause_title">Time\'s up for today</string>
+    <string name="pause_message">You\'ve used %1$s for %2$s today. Its daily limit is %3$s.</string>
+    <string name="pause_hint">It unpauses at midnight. To use it sooner, change its timer in Wellmute.</string>
+    <string name="pause_close">Close app</string>
+
+    <!-- Accessibility service, shown in Settings → Accessibility -->
+    <string name="accessibility_label">Wellmute app timers</string>
+    <string name="accessibility_description">Lets Wellmute pause apps whose daily timer has run out. Wellmute only learns which app is in front. It can\'t see what\'s on your screen or what you type, and nothing leaves your phone.</string>
+
+    <!-- Permissions -->
+    <string name="access_usage_message">To show your screen time, Wellmute needs usage access. It only reads which apps you used and for how long, and nothing leaves your phone.</string>
+    <string name="access_notifications_message">To count notifications per app, Wellmute needs notification access. Counts stay on your phone.</string>
+    <string name="access_grant">Open settings</string>
+
+    <!-- Durations and days -->
+    <string name="duration_hours_minutes">%1$d h %2$d min</string>
+    <string name="duration_hours">%1$d h</string>
+    <string name="duration_minutes">%1$d min</string>
+    <!-- Compact forms for tight spots, like the middle of the screen time ring. -->
+    <string name="duration_compact_hours_minutes">%1$dh %2$dm</string>
+    <string name="duration_compact_hours">%1$dh</string>
+    <string name="duration_compact_minutes">%1$dm</string>
+    <string name="duration_less_than_minute">&lt; 1 min</string>
+    <string name="day_today">Today</string>
+    <string name="day_yesterday">Yesterday</string>
+
+    <!-- Settings -->
+    <string name="settings_permissions">Permissions</string>
+    <string name="permission_usage_access">Usage access</string>
+    <string name="permission_notification_listener">Notification access</string>
+    <string name="permission_post_notifications">Allow notifications</string>
+    <string name="permission_dnd">Do Not Disturb access</string>
+    <string name="permission_accessibility">Accessibility service</string>
+    <string name="permission_battery">Unrestricted battery use</string>
+    <string name="settings_privacy">Privacy</string>
+    <string name="settings_privacy_summary">No internet access, and all data stays on this phone. Read how Wellmute handles your data.</string>
+    <plurals name="settings_permissions_summary">
+        <item quantity="one">%1$d of %2$d allowed</item>
+        <item quantity="other">%1$d of %2$d allowed</item>
+    </plurals>
+    <string name="permissions_intro">What each permission is for and what it\'s never used for. You can change any of them at any time.</string>
+    <string name="opens_in_browser">Opens in your browser</string>
+    <string name="link_no_browser">No browser found to open %1$s</string>
+    <string name="settings_support">Support the project</string>
+    <!-- %1$s is settings_support_days, shown in bold. -->
+    <string name="settings_support_used">You\'ve used Wellmute for %1$s. If it\'s given you some value, consider donating.</string>
+    <plurals name="settings_support_days">
+        <item quantity="one">%1$d day</item>
+        <item quantity="other">%1$d days</item>
+    </plurals>
+    <string name="settings_support_open_source">Wellmute is open source because privacy only works when anyone can check the code.</string>
+    <string name="settings_support_few_dollars">Even a few dollars from a few people can completely change the sustainability of a project.</string>
+    <string name="settings_donate">Donate</string>
+    <string name="settings_about">About</string>
+    <!-- Wellmute's own notifications -->
+    <string name="settings_notifications">Notifications</string>
+    <string name="settings_general">General</string>
+    <string name="settings_notifications_count">%1$d of %2$d on</string>
+    <string name="settings_notifications_blocked">Not allowed in Android\'s settings</string>
+    <string name="settings_notifications_intro">Wellmute only tells you about itself: while Bedtime or Focus mode is on, and once a week. They\'re quiet, made on this phone, and each can be turned off.</string>
+    <string name="settings_notifications_permission">Allow Wellmute to post notifications to see when Bedtime or Focus mode is on, and your weekly summary.</string>
+    <string name="settings_notif_bedtime">Bedtime mode is on</string>
+    <string name="settings_notif_bedtime_summary">A quiet notification while Bedtime is on, with the time it ends</string>
+    <string name="settings_notif_focus">Focus mode is on</string>
+    <string name="settings_notif_focus_summary">A quiet notification while Focus is on, with the time it ends</string>
+    <string name="settings_notif_weekly">Weekly summary</string>
+    <string name="settings_notif_weekly_summary">Each week, your screen time, unlocks and most used app from the week before</string>
+    <string name="notif_channel_bedtime">Bedtime mode is on</string>
+    <string name="notif_channel_focus">Focus mode is on</string>
+    <string name="notif_channel_weekly">Weekly summary</string>
+    <string name="notif_bedtime_until">Bedtime mode is on until %1$s</string>
+    <string name="notif_bedtime_on">Bedtime mode is on</string>
+    <string name="notif_bedtime_text">Only the apps you chose can reach you. Tap to change it.</string>
+    <string name="notif_focus_until">Focus mode is on until %1$s</string>
+    <string name="notif_focus_on">Focus mode is on</string>
+    <string name="notif_focus_text">Pausing your distracting apps</string>
+    <string name="notif_weekly_title">Last week: %1$s of screen time</string>
+    <string name="notif_weekly_average">%1$s a day</string>
+    <plurals name="notif_weekly_unlocks">
+        <item quantity="one">%1$d unlock</item>
+        <item quantity="other">%1$d unlocks</item>
+    </plurals>
+    <string name="notif_weekly_top_app">Most used: %1$s (%2$s)</string>
+    <string name="notif_weekly_less">%1$d%% less screen time than the week before</string>
+    <string name="notif_weekly_more">%1$d%% more screen time than the week before</string>
+    <string name="notif_weekly_same">About the same screen time as the week before</string>
+    <string name="lab_weekly_title">Weekly summary now</string>
+    <string name="lab_weekly_summary">Post last week\'s summary notification</string>
+    <string name="settings_version">Version %1$s</string>
+    <string name="settings_license">Free software, licensed under GPLv3</string>
+    <!-- The name is a link to the author's site. -->
+    <string name="settings_made_by">Made by %1$s</string>
+    <string name="settings_author_name" translatable="false">Alex Granados</string>
+    <string name="settings_developer">Developer</string>
+
+    <!-- Usage lab (phase 2 prototype, debug builds only) -->
+    <string name="lab_title">Usage lab</string>
+    <string name="lab_summary">Compare our screen time with Android\'s numbers</string>
+    <string name="lab_no_access">Wellmute needs usage access to read screen time. Turn it on for Wellmute, then come back.</string>
+    <string name="lab_grant_access">Open usage access settings</string>
+    <string name="lab_today">Today</string>
+    <string name="lab_yesterday">Yesterday</string>
+    <string name="lab_total">Total: R %1$s · V %2$s · A %3$s</string>
+    <string name="lab_legend">R = resumed (in front), V = visible (also behind dialogs), A = Android\'s number. The difference compares V with A.</string>
+    <string name="lab_unlocks">Unlocks: %1$d</string>
+    <string name="lab_row">R %1$s · V %2$s · A %3$s · %4$s</string>
+    <string name="lab_bubble_title">Reminder bubble</string>
+    <string name="lab_bubble_summary">Show a usage reminder bubble now (needs the accessibility service)</string>
+    <string name="notification_lab_title">Notification lab</string>
+    <string name="notification_lab_summary">Test filtering notifications without sound</string>
+    <string name="notification_lab_granted">Granted</string>
+    <string name="notification_lab_missing">Not granted</string>
+    <string name="notification_lab_open">Grant</string>
+    <string name="notification_lab_post">Post notifications</string>
+    <string name="notification_lab_strategy">Strategy</string>
+    <string name="notification_lab_off">Off</string>
+    <string name="notification_lab_blocklist">Blocklist</string>
+    <string name="notification_lab_allowlist">Allowlist</string>
+    <string name="notification_lab_off_help">Only logs notifications as they arrive.</string>
+    <string name="notification_lab_blocklist_help">Checked apps are blocked: their notifications are cancelled as soon as they arrive. Listen for any sound or vibration before they disappear.</string>
+    <string name="notification_lab_allowlist_help">A system mode silences every notification. Checked apps are allowed: their notifications are reposted by Wellmute with sound. Listen for silence from the others and sound from these.</string>
+    <string name="notification_lab_relay_ok">Wellmute\'s reposts can break through the mode.</string>
+    <string name="notification_lab_relay_blocked">Android didn\'t let Wellmute\'s reposts break through the mode, so allowed apps will stay silent too.</string>
+    <string name="notification_lab_targets">Apps</string>
+    <string name="notification_lab_send_test">Send test in 5 s</string>
+    <string name="notification_lab_clear">Clear log</string>
+    <string name="notification_lab_log">Log</string>
+    <string name="notification_lab_entry">%1$s · %2$s · %3$d ms after posting</string>
+    <string name="notification_lab_passed">passed through</string>
+    <string name="notification_lab_cancelled">cancelled</string>
+    <string name="notification_lab_relayed">reposted with sound</string>
+    <string name="notification_lab_left_silent">left silent</string>
+    <string name="notification_lab_test_title">Wellmute test</string>
+    <string name="notification_lab_test_text">Did this make a sound?</string>
+    <string name="notification_lab_test_channel">Test notifications</string>
+    <string name="notification_lab_relay_channel">Allowed during modes</string>
+    <string name="notification_lab_rule_name">Wellmute lab</string>
+    <plurals name="lab_opens">
+        <item quantity="one">%1$d open</item>
+        <item quantity="other">%1$d opens</item>
+    </plurals>
+</resources>

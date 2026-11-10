@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Window theme only: everything visible is drawn by Compose (ui/theme). -->
+    <style name="Theme.Wellmute" parent="android:Theme.Material.Light.NoActionBar">
+        <!-- The launch screen draws only the icon's white ring unless given the icon's background too. -->
+        <item name="android:windowSplashScreenIconBackgroundColor">@color/ic_launcher_background</item>
+    </style>
+</resources>

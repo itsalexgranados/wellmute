@@ -1,0 +1,8 @@
+<p>A free, open source alternative to Digital Wellbeing for GrapheneOS and any Android without Google services.</p>
+<ul>
+<li>Dashboard with today's screen time, unlocks and notifications</li>
+<li>Daily app timers that pause apps until midnight</li>
+<li>Focus mode and Bedtime mode</li>
+<li>Custom system modes with per-app notification filtering</li>
+</ul>
+<p>No internet permission. No analytics. All data stays on your device.</p>

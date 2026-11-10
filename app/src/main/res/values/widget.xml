@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Material You system colors, so the widget follows the wallpaper like the app does. -->
+    <color name="widget_background">@android:color/system_neutral1_50</color>
+    <color name="widget_primary">@android:color/system_accent1_800</color>
+    <color name="widget_secondary">@android:color/system_neutral2_600</color>
+
+    <style name="WidgetAppRow">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textColor">@color/widget_secondary</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+</resources>

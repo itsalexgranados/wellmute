@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.Wellmute" parent="android:Theme.Material.NoActionBar">
+        <!-- The launch screen draws only the icon's white ring unless given the icon's background too. -->
+        <item name="android:windowSplashScreenIconBackgroundColor">@color/ic_launcher_background</item>
+    </style>
+</resources>

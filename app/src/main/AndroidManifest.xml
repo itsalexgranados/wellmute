@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    No android.permission.INTERNET, ever (SPEC §6). `./gradlew checkNoInternet`
+    fails the build if a dependency merges it in.
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Screen time per app. Granted by the user in Settings → Usage access. -->
+    <uses-permission
+        android:name="android.permission.PACKAGE_USAGE_STATS"
+        tools:ignore="ProtectedPermissions" />
+
+    <!-- Names and icons for every app that shows up in usage data, not only launcher apps. -->
+    <uses-permission
+        android:name="android.permission.QUERY_ALL_PACKAGES"
+        tools:ignore="QueryAllPackagesPermission" />
+
+    <!-- Bedtime and Focus "is on" notifications and the weekly summary (each can be turned off). -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <!-- Optional, asked only when needed: shows who "starred contacts" are in Do Not Disturb and Bedtime. Read only. -->
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
+    <!-- Asking to be exempt from battery optimization, so timers, modes and history keep working. -->
+    <uses-permission
+        android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS"
+        tools:ignore="BatteryLife" />
+
+    <!-- Switching Bedtime mode on and off at its scheduled times (docs/decisions/0006). -->
+    <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
+
+    <!-- Creating and switching Bedtime, Focus and custom modes. Granted by the user in Settings. -->
+    <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
+
+    <!--
+        WorkManager adds these for features we don't use (network constraints, long-running
+        foreground work). It keeps WAKE_LOCK and RECEIVE_BOOT_COMPLETED to run the history sync.
+    -->
+    <uses-permission
+        android:name="android.permission.ACCESS_NETWORK_STATE"
+        tools:node="remove" />
+    <uses-permission
+        android:name="android.permission.FOREGROUND_SERVICE"
+        tools:node="remove" />
+
+    <application
+        android:name=".WellmuteApp"
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Wellmute">
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- Covers an app whose timer ran out. Its own task, so leaving never returns to that app. -->
+        <activity
+            android:name=".timers.PauseActivity"
+            android:excludeFromRecents="true"
+            android:exported="false"
+            android:launchMode="singleTask"
+            android:taskAffinity="" />
+
+        <!-- Tells Wellmute which app is in front, to pause apps. Granted by the user in Settings → Accessibility. -->
+        <service
+            android:name=".timers.ForegroundAppService"
+            android:exported="true"
+            android:label="@string/accessibility_label"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/accessibility_service" />
+        </service>
+
+        <!-- Bedtime's own scheduled wake-ups. Not exported: other apps can't switch Bedtime. -->
+        <receiver
+            android:name=".modes.BedtimeAlarmReceiver"
+            android:exported="false" />
+
+        <!-- System broadcasts: re-plans Bedtime after a restart, update or clock change. -->
+        <receiver
+            android:name=".modes.ModeAlarmReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+                <action android:name="android.intent.action.TIME_SET" />
+                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+                <action android:name="android.app.action.NEXT_ALARM_CLOCK_CHANGED" />
+                <action android:name="android.app.action.AUTOMATIC_ZEN_RULE_STATUS_CHANGED" />
+            </intent-filter>
+        </receiver>
+
+        <!-- Home screen widget: today's screen time and top apps. -->
+        <receiver
+            android:name=".widget.TodayWidget"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_today_info" />
+        </receiver>
+
+        <!-- Quick Settings tiles. -->
+        <service
+            android:name=".tiles.FocusTileService"
+            android:exported="true"
+            android:icon="@drawable/ic_focus"
+            android:label="@string/tile_focus"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.service.quicksettings.TOGGLEABLE_TILE"
+                android:value="true" />
+        </service>
+        <service
+            android:name=".tiles.BedtimeTileService"
+            android:exported="true"
+            android:icon="@drawable/ic_bedtime_tile"
+            android:label="@string/tile_bedtime"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.service.quicksettings.TOGGLEABLE_TILE"
+                android:value="true" />
+        </service>
+        <!-- Counts and filters notifications. Granted by the user in Settings → Notification access. -->
+        <service
+            android:name=".notifications.WellmuteNotificationListener"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
+            <intent-filter>
+                <action android:name="android.service.notification.NotificationListenerService" />
+            </intent-filter>
+        </service>
+    </application>
+
+</manifest>
