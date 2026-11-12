@@ -390,7 +390,7 @@
     <string name="setup_usage_why">Needed for the dashboard and app timers: which apps you used today, and for how long.</string>
     <string name="setup_usage_not">Not used for anything else. Wellmute never sees what you do inside apps.</string>
     <string name="setup_notifications_why">Counts notifications per app, and hides notifications from paused apps and from the apps you silence during Bedtime. With it, Android also gives Do Not Disturb access, so Bedtime can run as a real Android mode, with its grayscale, dimmed wallpaper, dark theme and always-on display off.</string>
-    <string name="setup_notifications_not">Their content is never stored or shared. Only notifications you asked to see later are kept, until you see them. Wellmute doesn\'t change any other system setting.</string>
+    <string name="setup_notifications_not">Their content is never stored or shared. Held notifications use Android\'s own snooze, so Wellmute keeps nothing of them. Wellmute doesn\'t change any other system setting.</string>
     <string name="setup_post_notifications_why">Lets Wellmute send you its own notifications:</string>
     <string name="setup_post_notifications_bedtime">Bedtime is on, and until when</string>
     <string name="setup_post_notifications_focus">Focus mode is on, and until when</string>

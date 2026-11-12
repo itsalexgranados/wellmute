@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- **Setup:** the notification access page now says what really happens to held notifications: Android's own snooze keeps them, and Wellmute keeps nothing of them.
+
 ## 0.4.0: first public version
 
 Tested on a Pixel 9 with GrapheneOS 2026110800 (Android 17) and a moto g54 5G with Android 15.
