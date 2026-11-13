@@ -1,0 +1,37 @@
+name: Feature idea
+description: Something Wellmute could do better, or doesn't do yet.
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Ideas are welcome. Wellmute stays offline and private, so anything that needs the internet, an account or analytics is out of scope.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: What would you like to do?
+      description: The problem or the moment it would help with, more than the solution.
+      placeholder: "At night I keep opening one app even though Bedtime is on…"
+    validations:
+      required: true
+
+  - type: textarea
+    id: idea
+    attributes:
+      label: How could Wellmute help?
+      description: Optional. Your idea of how it could work.
+
+  - type: textarea
+    id: today
+    attributes:
+      label: What do you do today instead?
+      description: Optional. Another app, a setting, a workaround.
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before sending
+      options:
+        - label: I checked the open issues and this idea isn't there yet.
+          required: true

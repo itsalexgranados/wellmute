@@ -1,0 +1,113 @@
+name: Bug report
+description: Something in Wellmute doesn't work as it should.
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report this. Please don't include personal data (contact names, notification content, account details) in text or screenshots.
+        A security problem? Don't open an issue: report it privately from the Security tab.
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: What you did, what you expected, and what happened instead.
+      placeholder: |
+        I set a 30 min timer for an app. After 30 min the app wasn't paused, and no warning bubble appeared.
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Open App timers and add a timer for …
+        2. Use the app for …
+        3. …
+    validations:
+      required: true
+
+  - type: dropdown
+    id: feature
+    attributes:
+      label: Part of the app
+      options:
+        - Setup and permissions
+        - Dashboard and screen time
+        - App timers
+        - Usage reminders
+        - Focus mode
+        - Bedtime mode
+        - Widget or Quick Settings tiles
+        - Notifications
+        - Settings
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Wellmute version
+      description: In Wellmute, Settings → Version.
+      placeholder: "0.4.0"
+    validations:
+      required: true
+
+  - type: input
+    id: android
+    attributes:
+      label: Android version and OS
+      placeholder: "GrapheneOS 2026110800 (Android 17), or stock Android 15"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: google-services
+    attributes:
+      label: Google services
+      description: On GrapheneOS, sandboxed Google Play counts as installed.
+      options:
+        - Not installed
+        - Installed (sandboxed Google Play on GrapheneOS)
+        - Installed (stock Android with Google)
+        - Not sure
+    validations:
+      required: true
+
+  - type: input
+    id: phone
+    attributes:
+      label: Phone model
+      placeholder: "Pixel 9"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: installed-from
+    attributes:
+      label: Installed from
+      options:
+        - Obtainium
+        - APK from GitHub
+        - Other
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before sending
+      options:
+        - label: All the permissions Wellmute asks for are allowed (Settings → Permissions in Wellmute).
+        - label: Battery optimization is off for Wellmute.
+        - label: I checked the open issues and this isn't reported yet.
+          required: true
+
+  - type: textarea
+    id: extra
+    attributes:
+      label: Screenshots or anything else
+      description: Optional. Drag images here. Please hide any personal data first.

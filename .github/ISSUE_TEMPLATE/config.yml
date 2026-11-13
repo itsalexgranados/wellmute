@@ -1,0 +1,9 @@
+# Only the two forms above; no blank issues.
+blank_issues_enabled: false
+contact_links:
+  - name: Report a security problem privately
+    url: https://github.com/itsalexgranados/wellmute/security/advisories/new
+    about: Please don't open a public issue for security problems.
+  - name: Privacy and permissions
+    url: https://github.com/itsalexgranados/wellmute/blob/main/docs/PRIVACY.md
+    about: What each permission is used for, and what Wellmute never does.
