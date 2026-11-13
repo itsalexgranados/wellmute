@@ -2,7 +2,7 @@
 
 Wellmute is a free, open-source app for taking back your time and muting the noise on your phone. It runs entirely on your phone: it has no internet permission, no accounts, no ads and no tracking.
 
-Screenshots were taken on a moto g54 5G running Android 15 with the release build (version 0.3.0), in dark theme, with real usage from a test phone. Colours follow the phone's wallpaper (Material You).
+Screenshots were taken on a moto g54 5G running Android 15 with the release build, in dark theme, with real usage from a test phone. Colours follow the phone's wallpaper (Material You).
 
 ---
 

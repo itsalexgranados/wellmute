@@ -70,6 +70,10 @@ More screens and how each feature works: [docs/features/FEATURES.md](docs/featur
 
 **Android 15 (API 35) or newer, with or without Google services.** Tested on a Pixel 9 with GrapheneOS 2026110800 (Android 17) and a moto g54 5G with Android 15.
 
+## Install
+
+**Get Wellmute with [Obtainium](https://apps.obtainium.imranr.dev/redirect?r=obtainium://add/https://github.com/itsalexgranados/wellmute) to receive updates automatically**, or download the APK from the [latest release](https://github.com/itsalexgranados/wellmute/releases/latest). More at [wellmute.com](https://wellmute.com). F-Droid is a work in progress.
+
 ## Verify your download
 
 **Every official Wellmute APK is signed with the same key.** You can check it with [AppVerifier](https://github.com/soupslurpr/AppVerifier) by pasting this into it:
