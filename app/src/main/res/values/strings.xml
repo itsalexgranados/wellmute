@@ -82,8 +82,8 @@
         <item quantity="other">Last reminder: %1$s, %2$d minutes, at %3$s</item>
     </plurals>
     <string name="reminders_not_shown">The bubble couldn\'t be shown: check that Wellmute\'s accessibility service is on.</string>
-    <!-- Short, so the bubble stays one line: "Calculator · 1 h 10 min today". -->
-    <string name="reminders_bubble">%1$s · %2$s today</string>
+    <!-- Short, so the bubble stays one line: "Calculator: 1 h 10 min today". -->
+    <string name="reminders_bubble">%1$s: %2$s today</string>
     <!-- Comparisons next to an average or total, like "⬇ 19% from last week". -->
     <string name="trend_week">%1$d%% from last week</string>
     <string name="trend_month">%1$d%% from last month</string>
@@ -126,13 +126,13 @@
     <string name="period_chart_days">Screen time for each day. The dashed line is the daily average, %1$s.</string>
     <string name="period_chart_months">Daily average for each month. The dashed line is the daily average for the year, %1$s.</string>
     <string name="dashboard_week_title">Last 7 days</string>
-    <string name="dashboard_week_summary">%1$s in total · %2$s a day on average</string>
+    <string name="dashboard_week_summary">%1$s in total, %2$s a day on average</string>
     <string name="dashboard_apps">Apps</string>
     <string name="dashboard_no_usage">No app usage recorded for this day.</string>
     <string name="app_detail_title">App usage</string>
     <string name="app_detail_show_day">Whole day</string>
     <string name="app_detail_day_total">%1$s in the whole day</string>
-    <string name="app_detail_year_averages">A day that month · the year averages %1$s</string>
+    <string name="app_detail_year_averages">A day that month (the year averages %1$s)</string>
     <string name="metric_screen_time">Screen time</string>
     <string name="metric_notifications">Notifications</string>
     <string name="metric_opens">Opens</string>
@@ -165,7 +165,7 @@
     <string name="timer_limit">Timer %1$s</string>
     <string name="app_detail_timer">App timer</string>
     <string name="app_detail_no_timer">No timer</string>
-    <string name="timer_warning_bubble">%1$s · %2$d min left today</string>
+    <string name="timer_warning_bubble">%1$s: %2$d min left today</string>
 
     <!-- Focus mode -->
     <string name="focus_on">Focus mode is on</string>
@@ -195,7 +195,7 @@
     <string name="focus_insights_phone_free">%1$d%% of it without using your phone</string>
     <string name="focus_insights_longest_free">Longest stretch without your phone</string>
     <string name="focus_insights_breaks">Breaks</string>
-    <string name="focus_insights_breaks_value">%1$d · %2$s</string>
+    <string name="focus_insights_breaks_value">%1$d (%2$s)</string>
     <string name="focus_insights_breaks_early">Breaks ended early</string>
     <string name="focus_insights_blocked">Blocked attempts</string>
     <string name="focus_insights_apps">Apps you used during Focus</string>
@@ -300,7 +300,7 @@
     <string name="senders_starred">Starred contacts only</string>
     <string name="senders_nobody">Nobody</string>
     <string name="summary_people_same">Calls and messages: %1$s</string>
-    <string name="summary_people">Calls: %1$s · Messages: %2$s</string>
+    <string name="summary_people">Calls: %1$s, Messages: %2$s</string>
     <string name="summary_no_sounds">No sounds</string>
     <string name="summary_every_day">Every day</string>
     <string name="day_compare_less">%1$d%% less screen time than last %2$s</string>
@@ -332,7 +332,7 @@
     <string name="display_summary_no_dots">no dots</string>
     <string name="display_summary_no_icons">no status bar icons</string>
     <string name="display_summary_shown">Shown as usual, without sound</string>
-    <string name="summary_while_charging">Only while charging</string>
+    <string name="summary_while_charging">(only while charging)</string>
     <string name="summary_no_screen_changes">No changes</string>
     <string name="starred_title">Your starred contacts</string>
     <string name="starred_permission_title">To see them here, allow access to your contacts first</string>
@@ -517,10 +517,10 @@
     <string name="lab_grant_access">Open usage access settings</string>
     <string name="lab_today">Today</string>
     <string name="lab_yesterday">Yesterday</string>
-    <string name="lab_total">Total: R %1$s · V %2$s · A %3$s</string>
+    <string name="lab_total">Total: R %1$s, V %2$s, A %3$s</string>
     <string name="lab_legend">R = resumed (in front), V = visible (also behind dialogs), A = Android\'s number. The difference compares V with A.</string>
     <string name="lab_unlocks">Unlocks: %1$d</string>
-    <string name="lab_row">R %1$s · V %2$s · A %3$s · %4$s</string>
+    <string name="lab_row">R %1$s, V %2$s, A %3$s, %4$s</string>
     <string name="lab_bubble_title">Reminder bubble</string>
     <string name="lab_bubble_summary">Show a usage reminder bubble now (needs the accessibility service)</string>
     <string name="notification_lab_title">Notification lab</string>
@@ -542,7 +542,7 @@
     <string name="notification_lab_send_test">Send test in 5 s</string>
     <string name="notification_lab_clear">Clear log</string>
     <string name="notification_lab_log">Log</string>
-    <string name="notification_lab_entry">%1$s · %2$s · %3$d ms after posting</string>
+    <string name="notification_lab_entry">%1$s: %2$s, %3$d ms after posting</string>
     <string name="notification_lab_passed">passed through</string>
     <string name="notification_lab_cancelled">cancelled</string>
     <string name="notification_lab_relayed">reposted with sound</string>

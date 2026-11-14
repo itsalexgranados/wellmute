@@ -15,7 +15,7 @@ import com.wellmute.modes.DndPolicy
 import com.wellmute.schedule.WeeklySchedule
 import java.time.format.TextStyle
 
-/** A row that opens a sub-page, showing what's chosen there ("Schedule · 22:00–07:00 · Mon, Tue"). */
+/** A row that opens a sub-page, showing what's chosen there ("Schedule: 22:00–07:00, Mon, Tue"). */
 @Composable
 fun NavRow(title: String, summary: String, enabled: Boolean = true, onClick: () -> Unit) {
     ListItem(
@@ -26,12 +26,12 @@ fun NavRow(title: String, summary: String, enabled: Boolean = true, onClick: () 
     )
 }
 
-/** "22:00–07:00 · Mon, Tue, Wed" or "Manual only". */
+/** "22:00–07:00, Mon, Tue, Wed" or "Manual only". */
 @Composable
 fun scheduleSummary(times: WeeklySchedule): String {
     if (!times.enabled) return stringResource(R.string.dnd_manual_only)
     val locale = LocalConfiguration.current.locales[0]
-    return "${formatMinute(times.startMinute)}–${formatMinute(times.endMinute)} · " +
+    return "${formatMinute(times.startMinute)}–${formatMinute(times.endMinute)}, " +
         if (times.days.size == 7) {
             stringResource(R.string.summary_every_day)
         } else {

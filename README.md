@@ -18,7 +18,7 @@ GrapheneOS doesn't ship Digital Wellbeing and it can't be installed, so its user
 
 - **Dashboard:** screen time, unlocks and notifications by day, week, month or year; per-app usage over the same periods, with screen time, notifications and opens.
 - **App timers:** daily limits per app. When time runs out, the app is paused until midnight.
-- **Usage reminders:** an optional bubble while you use an app ("Calculator · 10 min today"), every 5 to 60 minutes. No sound, nothing in the notification shade.
+- **Usage reminders:** an optional bubble while you use an app ("Calculator: 10 min today"), every 5 to 60 minutes. No sound, nothing in the notification shade.
 - **Focus mode:** pause distracting apps on demand or on a schedule, with "take a break".
 - **Bedtime mode:** grayscale, dim wallpaper, dark theme, no always-on display and Do Not Disturb, on a schedule. No ADB required.
 - **Fewer interruptions at night:** let only the apps you choose through Bedtime, even if Android lets more through Do Not Disturb, and get the rest back, as they were, when Bedtime ends. Schedules for Do Not Disturb are left to Android's Modes.

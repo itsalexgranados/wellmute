@@ -211,7 +211,7 @@ class PauseEnforcer(
         pausedByTimer.value = current.copy(packages = current.packages + packageName)
     }
 
-    /** A bubble over the app (like Focus and usage reminders), once a day per app: "Calculator · 5 min left today". */
+    /** A bubble over the app (like Focus and usage reminders), once a day per app: "Calculator: 5 min left today". */
     private suspend fun warnOnce(timer: AppTimer, remaining: Long) {
         val today = LocalDate.now()
         if (warned.day != today) warned = Paused(today, emptySet())

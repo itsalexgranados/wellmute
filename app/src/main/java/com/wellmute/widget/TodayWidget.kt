@@ -45,7 +45,7 @@ class TodayWidget : AppWidgetProvider() {
             val top = today.apps.filter { it.foregroundMillis >= 60_000 }.take(APP_ROWS.size)
             APP_ROWS.forEachIndexed { index, row ->
                 val app = top.getOrNull(index)
-                views.setTextViewText(row, app?.let { "${container.appInfo.labelFor(it.packageName)} · ${formatMinutes(context, it.foregroundMillis)}" } ?: "")
+                views.setTextViewText(row, app?.let { "${container.appInfo.labelFor(it.packageName)}: ${formatMinutes(context, it.foregroundMillis)}" } ?: "")
             }
             val open = PendingIntent.getActivity(context, 0, Intent(context, MainActivity::class.java), PendingIntent.FLAG_IMMUTABLE)
             views.setOnClickPendingIntent(R.id.widget_root, open)

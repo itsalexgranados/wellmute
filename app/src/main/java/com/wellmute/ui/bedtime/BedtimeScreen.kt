@@ -238,7 +238,7 @@ private fun change(scope: CoroutineScope, bedtime: BedtimeMode, update: (Bedtime
 private fun bedtimeScheduleSummary(settings: BedtimeSettings): String {
     val base = scheduleSummary(settings.schedule)
     return if (settings.schedule.enabled && settings.onlyWhileCharging) {
-        "$base · ${stringResource(R.string.summary_while_charging)}"
+        "$base ${stringResource(R.string.summary_while_charging)}"
     } else {
         base
     }

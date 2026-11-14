@@ -39,7 +39,7 @@ data class ReminderSettings(val enabled: Boolean = false, val intervalMinutes: I
 
 /**
  * Optional reminders while an app is open, as a small bubble floating over it ([ReminderBubble]):
- * "Calculator · 10 min today", at every multiple of the interval of that app's
+ * "Calculator: 10 min today", at every multiple of the interval of that app's
  * total screen time today. Off by default.
  *
  * Told which app is in front by the accessibility service, like app timers. To cost almost no

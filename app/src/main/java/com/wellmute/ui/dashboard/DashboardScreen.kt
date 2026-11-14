@@ -299,7 +299,7 @@ private fun AppRow(
     }
     ListItem(
         headlineContent = { Text(container.appInfo.labelFor(app.packageName)) },
-        supportingContent = { Text(details.joinToString(" · ")) },
+        supportingContent = { Text(details.joinToString(", ")) },
         leadingContent = { AppIcon(app.packageName, container.appInfo) },
         trailingContent = onTimerClick?.let { onTimer ->
             {

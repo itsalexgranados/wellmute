@@ -128,7 +128,7 @@ fun FocusInsightsScreen(onBack: () -> Unit) {
                     ListItem(
                         headlineContent = { Text(appInfo.labelFor(app.packageName)) },
                         supportingContent = {
-                            Text(formatDuration(app.millis) + " · " + pluralStringResource(R.plurals.open_count, app.opens, app.opens))
+                            Text(formatDuration(app.millis) + ", " + pluralStringResource(R.plurals.open_count, app.opens, app.opens))
                         },
                         leadingContent = { AppIcon(app.packageName, appInfo) },
                     )

@@ -142,7 +142,7 @@ fun NotificationLabScreen(onBack: () -> Unit) {
             item { SectionHeader(R.string.notification_lab_log) }
             items(log) { entry ->
                 ListItem(
-                    headlineContent = { Text("${container.appInfo.labelFor(entry.packageName)} · ${entry.title}") },
+                    headlineContent = { Text("${container.appInfo.labelFor(entry.packageName)}: ${entry.title}") },
                     supportingContent = {
                         val action = when (entry.action) {
                             NotificationLab.Action.PASSED -> R.string.notification_lab_passed

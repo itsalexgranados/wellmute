@@ -85,7 +85,7 @@ Opening it shows Wellmute's pause screen instead, and its notifications are hidd
 ## Usage reminders
 
 **A gentle nudge while you use an app.**
-Off by default. When on, a small bubble floats at the top of the screen every 5, 10, 15, 30 or 60 minutes: "Calculator · 10 min today". It fades away after a few seconds, makes no sound and lets your taps go through. It isn't a notification, so it never clutters your notification shade.
+Off by default. When on, a small bubble floats at the top of the screen every 5, 10, 15, 30 or 60 minutes: "Calculator: 10 min today". It fades away after a few seconds, makes no sound and lets your taps go through. It isn't a notification, so it never clutters your notification shade.
 
 | | |
 |---|---|

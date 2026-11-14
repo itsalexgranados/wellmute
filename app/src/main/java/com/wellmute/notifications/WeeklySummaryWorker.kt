@@ -55,7 +55,7 @@ class WeeklySummaryWorker(context: Context, params: WorkerParameters) : Coroutin
                             )
                         }
                     }
-                    container.notifications.postWeeklySummary(title, parts.joinToString(" · "))
+                    container.notifications.postWeeklySummary(title, parts.joinToString(", "))
                 }
             }
         } finally {

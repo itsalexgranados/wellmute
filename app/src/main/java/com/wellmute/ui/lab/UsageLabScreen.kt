@@ -95,7 +95,7 @@ fun UsageLabScreen(onBack: () -> Unit, viewModel: UsageLabViewModel = viewModel(
                                 formatDuration(row.visibleMillis),
                                 formatDuration(row.systemMillis),
                                 formatDifference(row.visibleMillis, row.systemMillis),
-                            ) + " · " + pluralStringResource(R.plurals.lab_opens, row.opens, row.opens),
+                            ) + ", " + pluralStringResource(R.plurals.lab_opens, row.opens, row.opens),
                         )
                     },
                 )

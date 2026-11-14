@@ -164,7 +164,7 @@ fun LazyListScope.appListToggle(byCategory: Boolean, onChange: (Boolean) -> Unit
 }
 
 /**
- * [apps] as one list, or under a heading per category ("Social · 1 h 13 min") with the most
+ * [apps] as one list, or under a heading per category ("Social, 1 h 13 min") with the most
  * used category first; [appRow] draws each app.
  */
 fun LazyListScope.appListItems(
@@ -192,7 +192,7 @@ fun LazyListScope.appListItems(
         }
 }
 
-/** "Social · 3 apps · 1 h 13 min", tapped to show or hide its apps. */
+/** "Social, 3 apps, 1 h 13 min", tapped to show or hide its apps. */
 @Composable
 private fun CategoryHeading(category: AppCategory, millis: Long, appCount: Int, open: Boolean, onClick: () -> Unit) {
     val color = categoryColors()[category.ordinal]
@@ -224,7 +224,7 @@ private fun CategoryHeading(category: AppCategory, millis: Long, appCount: Int, 
 }
 
 /**
- * "Longest session 48 min · Instagram", "After Bedtime use 21 min" and "During Focus 5 min",
+ * "Longest session 48 min (Instagram)", "After Bedtime use 21 min" and "During Focus 5 min",
  * for one day or a period (the longest of all; Bedtime and Focus as daily averages of the days
  * that had them). Each of those two rows only shows when asked for, or when a day has it.
  */
@@ -262,7 +262,7 @@ fun SessionStats(
         StatRow(
             stringResource(R.string.longest_session),
             longest?.let { day ->
-                listOfNotNull(formatDuration(day.longestSessionMillis), day.longestSessionPackage?.let(appInfo::labelFor)).joinToString(" · ")
+                formatDuration(day.longestSessionMillis) + day.longestSessionPackage?.let { " (${appInfo.labelFor(it)})" }.orEmpty()
             } ?: "–",
         )
         // The day view calls it last night's; everywhere else it's "After Bedtime use".

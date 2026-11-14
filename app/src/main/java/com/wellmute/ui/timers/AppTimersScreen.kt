@@ -78,7 +78,7 @@ fun AppTimersScreen(onBack: () -> Unit, onAdd: () -> Unit, viewModel: AppTimersV
                     supportingContent = {
                         Text(
                             stringResource(R.string.timer_limit, formatDuration(app.timer.dailyLimitMillis)) +
-                                " · " + timerStatus(app.timer, app.usedTodayMillis, isToday = true),
+                                ", " + timerStatus(app.timer, app.usedTodayMillis, isToday = true),
                         )
                     },
                     leadingContent = { AppIcon(app.timer.packageName, appInfo) },
