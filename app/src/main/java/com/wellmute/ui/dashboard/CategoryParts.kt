@@ -52,6 +52,7 @@ import com.wellmute.apps.AppCategory
 import com.wellmute.data.AppDay
 import com.wellmute.data.DayExtras
 import com.wellmute.ui.common.formatDuration
+import com.wellmute.ui.common.sliceColors
 import java.time.Instant
 import java.time.LocalTime
 import java.time.ZoneId
@@ -59,19 +60,20 @@ import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 
 /**
- * One colour per category, in [AppCategory] order, for stacked bars and their legend. Fixed hues
- * far apart from each other (blue, pink, green, amber, grey), lighter in the dark theme, so no two
- * categories can be mistaken whatever the wallpaper's colours.
+ * One colour per category, in [AppCategory] order, for stacked bars and their legend: the day
+ * ring's palette ([sliceColors]: indigo, coral, golden yellow, violet), so the Dashboard uses one
+ * set of colours. "Other" is a grey, a little lighter than the ring's so its legend stays readable.
  */
 @Composable
 fun categoryColors(): List<Color> {
     val dark = isSystemInDarkTheme()
+    val (indigo, coral, yellow, violet) = sliceColors()
     return AppCategory.entries.map {
         when (it) {
-            AppCategory.SOCIAL -> if (dark) Color(0xFF5EA8FF) else Color(0xFF1565C0)
-            AppCategory.ENTERTAINMENT -> if (dark) Color(0xFFFF7A9C) else Color(0xFFC2185B)
-            AppCategory.GAMES -> if (dark) Color(0xFF6DD58C) else Color(0xFF2E7D32)
-            AppCategory.PRODUCTIVITY -> if (dark) Color(0xFFFFC15E) else Color(0xFFE65100)
+            AppCategory.SOCIAL -> indigo
+            AppCategory.ENTERTAINMENT -> coral
+            AppCategory.GAMES -> violet
+            AppCategory.PRODUCTIVITY -> yellow
             AppCategory.OTHER -> if (dark) Color(0xFF7D7F87) else Color(0xFF9E9EA6)
         }
     }

@@ -188,7 +188,8 @@ class BedtimeMode(
 
     /** Re-reads from Android whether Bedtime is on. */
     suspend fun refreshActive() = withContext(Dispatchers.IO) {
-        val id = ruleId()
+        // Read from disk: right after the app starts, the remembered id may not be loaded yet.
+        val id = store.data.first()[RULE_ID]
         activeState.value = id != null &&
             runCatching { notificationManager.getAutomaticZenRuleState(id) }.getOrNull() == Condition.STATE_TRUE
     }

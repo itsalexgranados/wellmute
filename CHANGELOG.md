@@ -4,6 +4,8 @@
 
 - **Setup:** the notification access page now says what really happens to held notifications: Android's own snooze keeps them, and Wellmute keeps nothing of them.
 - **Texts:** details are no longer separated by "·". The app uses commas, colons ("Calculator: 10 min today") and brackets ("48 min (Instagram)") instead.
+- **Quick Settings tiles:** while Focus mode was on by schedule, the Focus tile could still show it as off: it didn't redraw when a schedule started or ended, so the first tap turned Focus off without showing it and the second turned it on. The tile now redraws at each schedule change and reads the saved settings, not the defaults the app starts with before loading them. The Bedtime tile also checks with Android before switching.
+- **Dashboard:** the category colours in the stacked bars now use the day ring's palette: Social indigo, Entertainment coral, Productivity golden yellow, Games violet, Other grey.
 
 ## 0.4.0: first public version
 

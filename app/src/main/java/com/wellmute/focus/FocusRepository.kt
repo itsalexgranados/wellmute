@@ -17,6 +17,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
@@ -36,6 +37,13 @@ class FocusRepository(context: Context, scope: CoroutineScope, private val dao: 
         .stateIn(scope, SharingStarted.Eagerly, FocusSettings())
 
     fun isActive(now: Instant = Instant.now()): Boolean = settings.value.isActive(now, ZoneId.systemDefault())
+
+    /**
+     * The settings as saved, waiting for them if needed. [settings] starts with the defaults (off)
+     * until DataStore has read the file, which matters when the process was just started, e.g. for
+     * the Quick Settings tile: it would show a scheduled Focus as off, and a tap would turn it on.
+     */
+    suspend fun loaded(): FocusSettings = store.data.first().toSettings()
 
     /** Whether Focus mode pauses [packageName] right now. */
     fun blocks(packageName: String, now: Instant = Instant.now()): Boolean =
