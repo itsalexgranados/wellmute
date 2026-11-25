@@ -273,7 +273,11 @@
     <string name="bedtime_after_dnd">Do Not Disturb</string>
     <string name="bedtime_after_dnd_summary">Turns on until Bedtime\'s scheduled end (%1$s), following your Do Not Disturb settings</string>
     <string name="after_bedtime_mode">Do Not Disturb after Bedtime</string>
-    <string name="after_bedtime_mode_trigger">When Bedtime ends early</string>
+    <string name="after_bedtime_mode_trigger">When Bedtime ends early or is snoozed</string>
+    <string name="bedtime_snooze_title">When you snooze it</string>
+    <string name="bedtime_snooze_help">\"Snooze %1$d min\", in Bedtime\'s notification, turns Bedtime off for %1$d minutes. Meanwhile:</string>
+    <string name="bedtime_snooze_nothing_summary">Everything goes back to normal until Bedtime turns back on</string>
+    <string name="bedtime_snooze_dnd_summary">Turns on until Bedtime turns back on, following your Do Not Disturb settings</string>
     <string name="bedtime_who_can_reach_you">Who can reach you</string>
     <string name="bedtime_calls_from">Calls from</string>
     <string name="bedtime_repeat_callers">Repeat callers</string>
@@ -488,6 +492,10 @@
     <string name="notif_bedtime_until">Bedtime mode is on until %1$s</string>
     <string name="notif_bedtime_on">Bedtime mode is on</string>
     <string name="notif_bedtime_text">Only the apps you chose can reach you. Tap to change it.</string>
+    <string name="notif_bedtime_snooze">Snooze %1$d min</string>
+    <string name="notif_bedtime_snoozed">Bedtime snoozed until %1$s</string>
+    <string name="notif_bedtime_snoozed_text">It turns back on by itself then.</string>
+    <string name="notif_bedtime_snoozed_night_text">Its hours end then, so it stays off until the next night.</string>
     <string name="notif_focus_until">Focus mode is on until %1$s</string>
     <string name="notif_focus_on">Focus mode is on</string>
     <string name="notif_focus_text">Pausing your distracting apps</string>

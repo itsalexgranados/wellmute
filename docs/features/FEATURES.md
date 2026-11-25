@@ -98,6 +98,8 @@ Off by default. When on, a small bubble floats at the top of the screen every 5,
 **Wind down at night.**
 Turn Bedtime on by hand, from Quick Settings, or on a schedule with the days you choose. It can turn on only while the phone is charging, and turn off with your first morning alarm.
 
+Not ready for bed yet? **Snooze 30 min**, on Bedtime's notification, turns it off and back on by itself 30 minutes later (or not until the next night, if its hours end sooner). Meanwhile everything goes back to normal, or Do Not Disturb takes over if you choose so in **When you snooze it**.
+
 While it's on, it can:
 - turn on Do Not Disturb, with your own choice of who can reach you and which sounds still play;
 - make the screen grayscale;

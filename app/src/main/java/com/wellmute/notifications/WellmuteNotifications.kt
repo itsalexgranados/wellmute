@@ -6,6 +6,7 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
@@ -15,6 +16,10 @@ import androidx.datastore.preferences.preferencesDataStore
 import com.wellmute.MainActivity
 import com.wellmute.R
 import com.wellmute.bedtime.BedtimeMode
+import com.wellmute.bedtime.BedtimeSettings
+import com.wellmute.bedtime.BedtimeSnooze
+import com.wellmute.bedtime.SNOOZE_MINUTES
+import com.wellmute.modes.BedtimeAlarmReceiver
 import com.wellmute.focus.FocusRepository
 import com.wellmute.ui.navigation.Routes
 import kotlinx.coroutines.CoroutineScope
@@ -34,6 +39,9 @@ import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 
 private val Context.notificationPrefsStore: DataStore<Preferences> by preferencesDataStore(name = "notification_prefs")
+
+/** What Bedtime's notification shows. */
+private data class BedtimeState(val active: Boolean, val settings: BedtimeSettings, val snooze: BedtimeSnooze?, val prefs: NotificationPrefs)
 
 /** Which of Wellmute's own notifications to show; each can be turned off in Settings. */
 data class NotificationPrefs(val bedtimeOn: Boolean = true, val focusOn: Boolean = true, val weeklySummary: Boolean = true)
@@ -57,23 +65,36 @@ class WellmuteNotifications(
 
     init {
         createChannels()
-        // Bedtime: shown while it's on, from whichever switch turned it on (schedule, tile, app, Settings).
+        // Bedtime: shown while it's on, from whichever switch turned it on (schedule, tile, app, Settings),
+        // with "Snooze 30 min"; and while it's snoozed, with "Turn on now".
         scope.launch {
-            combine(bedtime.active, bedtime.settings, prefs) { active, settings, prefs -> Triple(active, settings, prefs) }
-                .collectLatest { (active, settings, prefs) ->
-                    if (!active || !prefs.bedtimeOn) {
-                        manager.cancel(BEDTIME_ID)
-                        return@collectLatest
+            combine(bedtime.active, bedtime.settings, bedtime.snooze, prefs) { active, settings, snooze, prefs -> BedtimeState(active, settings, snooze, prefs) }
+                .collectLatest { (active, settings, snooze, prefs) ->
+                    when {
+                        !prefs.bedtimeOn -> manager.cancel(BEDTIME_ID)
+                        active -> {
+                            val end = settings.schedule.windowAt(ZonedDateTime.now())?.endInclusive?.toInstant()
+                            post(
+                                BEDTIME_ID,
+                                BEDTIME_CHANNEL,
+                                R.drawable.ic_bedtime_tile,
+                                end?.let { context.getString(R.string.notif_bedtime_until, timeOf(it)) } ?: context.getString(R.string.notif_bedtime_on),
+                                context.getString(R.string.notif_bedtime_text),
+                                Routes.BEDTIME,
+                                actions = listOf(bedtimeAction(BedtimeAlarmReceiver.ACTION_SNOOZE, context.getString(R.string.notif_bedtime_snooze, SNOOZE_MINUTES))),
+                            )
+                        }
+                        snooze != null -> post(
+                            BEDTIME_ID,
+                            BEDTIME_CHANNEL,
+                            R.drawable.ic_bedtime_tile,
+                            context.getString(R.string.notif_bedtime_snoozed, timeOf(Instant.ofEpochMilli(snooze.until))),
+                            context.getString(if (snooze.resumes) R.string.notif_bedtime_snoozed_text else R.string.notif_bedtime_snoozed_night_text),
+                            Routes.BEDTIME,
+                            actions = listOf(bedtimeAction(BedtimeAlarmReceiver.ACTION_TURN_ON, context.getString(R.string.bedtime_turn_on))),
+                        )
+                        else -> manager.cancel(BEDTIME_ID)
                     }
-                    val end = settings.schedule.windowAt(ZonedDateTime.now())?.endInclusive?.toInstant()
-                    post(
-                        BEDTIME_ID,
-                        BEDTIME_CHANNEL,
-                        R.drawable.ic_bedtime_tile,
-                        end?.let { context.getString(R.string.notif_bedtime_until, timeOf(it)) } ?: context.getString(R.string.notif_bedtime_on),
-                        context.getString(R.string.notif_bedtime_text),
-                        Routes.BEDTIME,
-                    )
                 }
         }
         // Focus: re-checked exactly when it may turn on or off by itself (schedule, end of a break).
@@ -120,7 +141,27 @@ class WellmuteNotifications(
         post(WEEKLY_ID, WEEKLY_CHANNEL, R.drawable.ic_launcher_foreground, title, text, Routes.DASHBOARD, ongoing = false)
     }
 
-    private fun post(id: Int, channel: String, icon: Int, title: String, text: String, route: String, ongoing: Boolean = true) {
+    /** A button on Bedtime's notification, handled by the (not exported) [BedtimeAlarmReceiver]. */
+    private fun bedtimeAction(action: String, label: String): Notification.Action {
+        val intent = PendingIntent.getBroadcast(
+            context,
+            action.hashCode(),
+            Intent(context, BedtimeAlarmReceiver::class.java).setAction(action),
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
+        )
+        return Notification.Action.Builder(null, label, intent).build()
+    }
+
+    private fun post(
+        id: Int,
+        channel: String,
+        icon: Int,
+        title: String,
+        text: String,
+        route: String,
+        ongoing: Boolean = true,
+        actions: List<Notification.Action> = emptyList(),
+    ) {
         if (!canPost()) return
         val open = PendingIntent.getActivity(
             context,
@@ -139,6 +180,7 @@ class WellmuteNotifications(
             .setOnlyAlertOnce(true)
             .setShowWhen(!ongoing)
             .setCategory(if (ongoing) Notification.CATEGORY_STATUS else Notification.CATEGORY_RECOMMENDATION)
+            .setActions(*actions.toTypedArray())
             .build()
         manager.notify(id, notification)
     }

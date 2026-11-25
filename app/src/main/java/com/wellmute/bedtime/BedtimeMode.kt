@@ -55,8 +55,28 @@ import java.time.ZonedDateTime
 
 private val Context.bedtimeStore: DataStore<Preferences> by preferencesDataStore(name = "bedtime")
 
-/** "After it's done": nothing, or Do Not Disturb until Bedtime's scheduled end. */
+/** "After it's done" and "When you snooze it": nothing, or Do Not Disturb until Bedtime's scheduled end or return. */
 enum class AfterBedtime { NOTHING, DO_NOT_DISTURB }
+
+/** Bedtime snoozed from its notification: off [until] then, back on by itself if it [resumes]. */
+data class BedtimeSnooze(val until: Long, val resumes: Boolean)
+
+/** How long "Snooze 30 min" turns Bedtime off. */
+const val SNOOZE_MINUTES = 30L
+
+/**
+ * When a snooze started at [now] ends, and whether Bedtime comes back then. Inside the scheduled
+ * hours ([windowEnd] not null) it never runs past their end: with [minutes] or less left,
+ * Bedtime just stays off until the next night.
+ */
+fun snoozeEnd(now: Instant, windowEnd: Instant?, minutes: Long = SNOOZE_MINUTES): BedtimeSnooze {
+    val resumeAt = now.plusSeconds(minutes * 60)
+    return if (windowEnd != null && !windowEnd.isAfter(resumeAt)) {
+        BedtimeSnooze(windowEnd.toEpochMilli(), resumes = false)
+    } else {
+        BedtimeSnooze(resumeAt.toEpochMilli(), resumes = true)
+    }
+}
 
 data class BedtimeSettings(
     val schedule: WeeklySchedule = WeeklySchedule(days = DayOfWeek.entries.toSet(), startMinute = 22 * 60, endMinute = 7 * 60),
@@ -80,6 +100,8 @@ data class BedtimeSettings(
     val deliverAtEnd: Boolean = true,
     /** What to switch on when Bedtime ends before its scheduled end (unplugged, or the first alarm). */
     val afterEarlyEnd: AfterBedtime = AfterBedtime.NOTHING,
+    /** What to switch on while Bedtime is snoozed from its notification. */
+    val whileSnoozed: AfterBedtime = AfterBedtime.NOTHING,
     /** Apps that can't be opened while Bedtime is on (a pause screen covers them, like Focus). */
     val blockedApps: Set<String> = emptySet(),
     /** A bubble 1 minute before "Use it for 5 minutes" runs out. */
@@ -176,6 +198,49 @@ class BedtimeMode(
         return settings.value.blockedApps.filterNot(protectedApps::isProtected).toSet()
     }
 
+    /** Snoozed from the notification, or null. Kept until Bedtime comes back, is switched by hand, or the night ends. */
+    val snooze: StateFlow<BedtimeSnooze?> = store.data
+        .map { it.toSnooze() }
+        .stateIn(scope, SharingStarted.Eagerly, null)
+
+    private fun Preferences.toSnooze(): BedtimeSnooze? =
+        this[SNOOZED_UNTIL]?.let { BedtimeSnooze(it, this[SNOOZE_RESUMES] ?: true) }
+
+    /**
+     * "Snooze 30 min": off now, back on by itself in 30 minutes (however it was turned on), or
+     * off until the next night when the scheduled hours end sooner. With "When you snooze it" set
+     * to Do Not Disturb, that takes over meanwhile.
+     */
+    suspend fun snooze() = withContext(Dispatchers.IO) {
+        val current = store.data.first().toSettings()
+        val now = ZonedDateTime.now()
+        val windowEnd = current.schedule.takeIf { it.enabled }?.windowAt(now)?.endInclusive?.toInstant()
+        val end = snoozeEnd(now.toInstant(), windowEnd)
+        store.edit {
+            it[SNOOZED_UNTIL] = end.until
+            it[SNOOZE_RESUMES] = end.resumes
+        }
+        setActive(false, Condition.SOURCE_USER_ACTION)
+        if (current.whileSnoozed == AfterBedtime.DO_NOT_DISTURB) setAfterBedtimeDnd(true)
+        // A second late, like the schedule's wake-ups, so a snooze that runs to the end of the night sees it over.
+        setAlarm(BedtimeAlarmReceiver.ACTION_SNOOZE_END, end.until + 1_000)
+    }
+
+    /** Forgets a snooze (Bedtime switched by hand): it won't come back by itself, and its Do Not Disturb ends. */
+    private suspend fun cancelSnooze() {
+        if (store.data.first().toSnooze() == null) return
+        clearSnooze()
+        setAfterBedtimeDnd(false)
+    }
+
+    private suspend fun clearSnooze() {
+        store.edit {
+            it.remove(SNOOZED_UNTIL)
+            it.remove(SNOOZE_RESUMES)
+        }
+        setAlarm(BedtimeAlarmReceiver.ACTION_SNOOZE_END, null)
+    }
+
     /** "Use it for 5 minutes": lets every blocked app through until then, not just the one in front. */
     suspend fun openBlockedFor(minutes: Int) {
         val until = System.currentTimeMillis() + minutes * 60_000L
@@ -224,12 +289,19 @@ class BedtimeMode(
             after.onlyWhileCharging != before.onlyWhileCharging ||
             after.endWithAlarm != before.endWithAlarm
         if (schedulingChanged) syncWithSchedule(after)
-        if (after.afterEarlyEnd == AfterBedtime.NOTHING) setAfterBedtimeDnd(false)
+        val snoozeDnd = store.data.first().toSnooze() != null && after.whileSnoozed == AfterBedtime.DO_NOT_DISTURB
+        if (after.afterEarlyEnd == AfterBedtime.NOTHING && !snoozeDnd) setAfterBedtimeDnd(false)
     }
 
-    suspend fun turnOn() = setActive(true, Condition.SOURCE_USER_ACTION)
+    suspend fun turnOn() {
+        cancelSnooze()
+        setActive(true, Condition.SOURCE_USER_ACTION)
+    }
 
-    suspend fun turnOff() = setActive(false, Condition.SOURCE_USER_ACTION)
+    suspend fun turnOff() {
+        cancelSnooze()
+        setActive(false, Condition.SOURCE_USER_ACTION)
+    }
 
     /**
      * Called by [BedtimeAlarmReceiver] at each scheduled start and end and when the morning alarm
@@ -281,6 +353,8 @@ class BedtimeMode(
     private suspend fun setAfterBedtimeDnd(on: Boolean) = withContext(Dispatchers.IO) {
         if (!hasAccess()) return@withContext
         val saved = store.data.first()[AFTER_RULE_ID]?.takeIf { runCatching { notificationManager.getAutomaticZenRule(it) }.getOrNull() != null }
+        // Modes made by older versions only say "When Bedtime ends early".
+        if (on && saved != null) runCatching { notificationManager.updateAutomaticZenRule(saved, buildAfterBedtimeRule()) }
         val id = saved ?: if (on) addAfterBedtimeRule() else null
         id ?: return@withContext
         val state = if (on) Condition.STATE_TRUE else Condition.STATE_FALSE
@@ -289,15 +363,17 @@ class BedtimeMode(
         }.onFailure { Log.w(TAG, "Couldn't switch Do Not Disturb after Bedtime", it) }
     }
 
-    private suspend fun addAfterBedtimeRule(): String? {
-        val rule = AutomaticZenRule.Builder(context.getString(R.string.after_bedtime_mode), AFTER_CONDITION)
+    private fun buildAfterBedtimeRule(): AutomaticZenRule =
+        AutomaticZenRule.Builder(context.getString(R.string.after_bedtime_mode), AFTER_CONDITION)
             .setType(AutomaticZenRule.TYPE_OTHER)
             .setConfigurationActivity(ComponentName(context, MainActivity::class.java))
             .setTriggerDescription(context.getString(R.string.after_bedtime_mode_trigger))
             .setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_PRIORITY)
             .setIconResId(R.drawable.ic_bedtime)
             .build()
-        val id = runCatching { notificationManager.addAutomaticZenRule(rule) }
+
+    private suspend fun addAfterBedtimeRule(): String? {
+        val id = runCatching { notificationManager.addAutomaticZenRule(buildAfterBedtimeRule()) }
             .onFailure { Log.w(TAG, "Android refused the Do Not Disturb after Bedtime mode", it) }
             .getOrNull() ?: return null
         store.edit { it[AFTER_RULE_ID] = id }
@@ -308,17 +384,36 @@ class BedtimeMode(
     fun onNextAlarmChanged() = scheduleAlarms(settings.value)
 
     private suspend fun syncWithSchedule(settings: BedtimeSettings) {
-        if (settings.schedule.enabled) setActive(shouldBeOn(settings), Condition.SOURCE_SCHEDULE)
-        // Bedtime's scheduled end is also the end of Do Not Disturb after it.
-        if (!isInWindow(settings)) setAfterBedtimeDnd(false)
+        var resumedByHand = false
+        val pending = store.data.first().toSnooze()
+        if (pending != null && System.currentTimeMillis() >= pending.until) {
+            // The snooze is over: Bedtime comes back (unless the night ended), and its Do Not Disturb ends.
+            clearSnooze()
+            setAfterBedtimeDnd(false)
+            if (pending.resumes && !(settings.schedule.enabled && isInWindow(settings))) {
+                // Turned on by hand, outside the scheduled hours: the schedule wouldn't bring it back.
+                setActive(true, Condition.SOURCE_SCHEDULE)
+                resumedByHand = true
+            }
+        } else if (pending != null) {
+            // Still snoozed (after a restart, say): make sure the wake-up that ends it is there.
+            setAlarm(BedtimeAlarmReceiver.ACTION_SNOOZE_END, pending.until + 1_000)
+        }
+        if (settings.schedule.enabled && !resumedByHand) setActive(shouldBeOn(settings), Condition.SOURCE_SCHEDULE)
+        // Bedtime's scheduled end also ends Do Not Disturb after it, but not a snooze's: that ends with the snooze.
+        val snoozing = store.data.first().toSnooze() != null
+        if (!isInWindow(settings) && !snoozing) setAfterBedtimeDnd(false)
         scheduleAlarms(settings)
     }
 
-    /** Inside the scheduled window, not ended by the morning alarm, and charging if that's required. */
+    /** Inside the scheduled window, not ended by the morning alarm, not snoozed, and charging if that's required. */
     private suspend fun shouldBeOn(settings: BedtimeSettings): Boolean {
-        val offUntil = store.data.first()[OFF_UNTIL] ?: 0
+        val prefs = store.data.first()
+        val offUntil = prefs[OFF_UNTIL] ?: 0
+        val snoozedUntil = prefs[SNOOZED_UNTIL] ?: 0
         return isInWindow(settings) &&
             System.currentTimeMillis() >= offUntil &&
+            System.currentTimeMillis() >= snoozedUntil &&
             (!settings.onlyWhileCharging || isCharging())
     }
 
@@ -466,6 +561,7 @@ class BedtimeMode(
             appRule = this[APP_RULE]?.let { name -> AppRule.entries.find { it.name == name } } ?: defaults.appRule,
             deliverAtEnd = this[DELIVER_AT_END] ?: defaults.deliverAtEnd,
             afterEarlyEnd = this[AFTER_EARLY_END]?.let { name -> AfterBedtime.entries.find { it.name == name } } ?: defaults.afterEarlyEnd,
+            whileSnoozed = this[WHILE_SNOOZED]?.let { name -> AfterBedtime.entries.find { it.name == name } } ?: defaults.whileSnoozed,
             blockedApps = this[BLOCKED_APPS] ?: defaults.blockedApps,
             warnBeforeUseEnds = this[WARN_BEFORE_USE_ENDS] ?: defaults.warnBeforeUseEnds,
         )
@@ -502,6 +598,7 @@ class BedtimeMode(
         prefs[APP_RULE] = appRule.name
         prefs[DELIVER_AT_END] = deliverAtEnd
         prefs[AFTER_EARLY_END] = afterEarlyEnd.name
+        prefs[WHILE_SNOOZED] = whileSnoozed.name
         prefs[BLOCKED_APPS] = blockedApps
         prefs[WARN_BEFORE_USE_ENDS] = warnBeforeUseEnds
     }
@@ -549,6 +646,9 @@ class BedtimeMode(
 
         val DELIVER_AT_END = booleanPreferencesKey("delay_until_end")
         val AFTER_EARLY_END = stringPreferencesKey("after_early_end")
+        val WHILE_SNOOZED = stringPreferencesKey("while_snoozed")
+        val SNOOZED_UNTIL = longPreferencesKey("snoozed_until")
+        val SNOOZE_RESUMES = booleanPreferencesKey("snooze_resumes")
         val BLOCKED_APPS = stringSetPreferencesKey("blocked_apps")
         val WARN_BEFORE_USE_ENDS = booleanPreferencesKey("warn_before_use_ends")
         /** Until when all blocked apps can be used ("Use it for 5 minutes"). */

@@ -31,6 +31,7 @@ import com.wellmute.WellmuteApp
 import com.wellmute.bedtime.AfterBedtime
 import com.wellmute.bedtime.BedtimeMode
 import com.wellmute.bedtime.BedtimeSettings
+import com.wellmute.bedtime.SNOOZE_MINUTES
 import com.wellmute.ui.common.AccessCard
 import com.wellmute.ui.common.NavRow
 import com.wellmute.ui.common.ScheduleEditor
@@ -48,6 +49,10 @@ import com.wellmute.ui.common.scheduleSummary
 import com.wellmute.ui.common.soundsSummary
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import java.time.Instant
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
+import java.time.format.FormatStyle
 
 /** Bedtime's groups of settings, each on its own page. */
 enum class BedtimeSection { SCHEDULE, PEOPLE, SOUNDS, DISPLAY, APPS, BLOCKED, SCREEN }
@@ -75,6 +80,7 @@ fun BedtimeScreen(onBack: () -> Unit, onOpen: (BedtimeSection) -> Unit) {
     val hasAccess = remember(refresh) { bedtime.hasAccess() }
     // Updated the moment it's switched anywhere (here, Quick Settings, the schedule), without polling.
     val isActive by bedtime.active.collectAsStateWithLifecycle()
+    val snooze by bedtime.snooze.collectAsStateWithLifecycle()
 
     SubpageScaffold(title = R.string.bedtime_title, onBack = onBack) { padding ->
         LazyColumn(contentPadding = padding) {
@@ -89,7 +95,15 @@ fun BedtimeScreen(onBack: () -> Unit, onOpen: (BedtimeSection) -> Unit) {
             item {
                 Card(Modifier.fillMaxWidth().padding(16.dp)) {
                     Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                        Text(stringResource(if (isActive) R.string.bedtime_on else R.string.bedtime_off), style = MaterialTheme.typography.titleLarge)
+                        val snoozedUntil = snooze?.takeIf { !isActive }?.until
+                        Text(
+                            when {
+                                isActive -> stringResource(R.string.bedtime_on)
+                                snoozedUntil != null -> stringResource(R.string.notif_bedtime_snoozed, timeOfDay(snoozedUntil))
+                                else -> stringResource(R.string.bedtime_off)
+                            },
+                            style = MaterialTheme.typography.titleLarge,
+                        )
                         Text(
                             stringResource(R.string.bedtime_explanation),
                             style = MaterialTheme.typography.bodyMedium,
@@ -159,6 +173,31 @@ fun BedtimeScreen(onBack: () -> Unit, onOpen: (BedtimeSection) -> Unit) {
                 ) { change { it.copy(afterEarlyEnd = AfterBedtime.DO_NOT_DISTURB) } }
             }
 
+            // What takes over while Bedtime is snoozed from its notification: nothing, or Do Not Disturb.
+            item { SectionHeader(R.string.bedtime_snooze_title) }
+            item {
+                Text(
+                    stringResource(R.string.bedtime_snooze_help, SNOOZE_MINUTES),
+                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp),
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            }
+            item {
+                AfterOption(
+                    title = stringResource(R.string.bedtime_after_nothing),
+                    summary = stringResource(R.string.bedtime_snooze_nothing_summary),
+                    selected = settings.whileSnoozed == AfterBedtime.NOTHING,
+                ) { change { it.copy(whileSnoozed = AfterBedtime.NOTHING) } }
+            }
+            item {
+                AfterOption(
+                    title = stringResource(R.string.bedtime_after_dnd),
+                    summary = stringResource(R.string.bedtime_snooze_dnd_summary),
+                    selected = settings.whileSnoozed == AfterBedtime.DO_NOT_DISTURB,
+                ) { change { it.copy(whileSnoozed = AfterBedtime.DO_NOT_DISTURB) } }
+            }
+
             item {
                 Text(
                     stringResource(R.string.bedtime_sync_note),
@@ -170,6 +209,10 @@ fun BedtimeScreen(onBack: () -> Unit, onOpen: (BedtimeSection) -> Unit) {
         }
     }
 }
+
+/** "22:30", in the phone's own time format. */
+private fun timeOfDay(epochMillis: Long): String =
+    DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT).format(Instant.ofEpochMilli(epochMillis).atZone(ZoneId.systemDefault()))
 
 /** One group of Bedtime's settings. */
 @Composable
