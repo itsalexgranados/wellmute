@@ -46,5 +46,12 @@ data class FocusSettings(
         return copy(manualOn = false, breakUntil = 0, manualOffUntil = window?.endInclusive?.toInstant()?.toEpochMilli() ?: 0)
     }
 
+    /**
+     * A changed schedule applies from now: being turned off by hand during the old schedule's
+     * window no longer holds, or a new start would be ignored until that old window's end.
+     */
+    fun rescheduled(newSchedule: WeeklySchedule): FocusSettings =
+        if (newSchedule == schedule) this else copy(schedule = newSchedule, manualOffUntil = 0)
+
     fun onBreak(now: Instant, minutes: Int): FocusSettings = copy(breakUntil = now.toEpochMilli() + minutes * 60_000L)
 }

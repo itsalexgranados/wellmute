@@ -80,7 +80,7 @@ class FocusRepository(context: Context, scope: CoroutineScope, private val dao: 
     suspend fun setApp(packageName: String, distracting: Boolean) =
         update { it.copy(apps = if (distracting) it.apps + packageName else it.apps - packageName) }
 
-    suspend fun setSchedule(schedule: WeeklySchedule) = update { it.copy(schedule = schedule) }
+    suspend fun setSchedule(schedule: WeeklySchedule) = update { it.rescheduled(schedule) }
 
     suspend fun setWarnBeforeBreakEnds(on: Boolean) = update { it.copy(warnBeforeBreakEnds = on) }
 
