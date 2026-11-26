@@ -13,6 +13,7 @@ import com.wellmute.focus.FocusInsightsRepository
 import com.wellmute.focus.FocusRepository
 import com.wellmute.notifications.NotificationSnoozer
 import com.wellmute.notifications.WellmuteNotifications
+import com.wellmute.tiles.TileUpdates
 import com.wellmute.notifications.NotificationCounter
 import com.wellmute.notifications.NotificationLab
 import com.wellmute.permissions.PermissionChecker
@@ -53,6 +54,7 @@ class AppContainer(context: Context) {
     val notificationSnoozer = NotificationSnoozer()
     val bedtime = BedtimeMode(context, appScope, notificationSnoozer, protectedApps)
     val notifications = WellmuteNotifications(context, appScope, bedtime, focus)
+    val tileUpdates = TileUpdates(context, appScope, focus, bedtime)
     val timerSettings = TimerSettings(context, appScope)
     val blockedUseWarning = BlockedUseWarning(context, bedtime, appScope)
     val pauseEnforcer = PauseEnforcer(context, timers, usageRepository, appInfo, protectedApps, focus, timerSettings, database.historyDao(), bedtime)

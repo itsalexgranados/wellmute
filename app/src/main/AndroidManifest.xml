@@ -128,6 +128,10 @@
             <meta-data
                 android:name="android.service.quicksettings.TOGGLEABLE_TILE"
                 android:value="true" />
+            <!-- Redrawn when Wellmute asks (tiles/TileUpdates.kt), so it's right even with the panel closed. -->
+            <meta-data
+                android:name="android.service.quicksettings.ACTIVE_TILE"
+                android:value="true" />
         </service>
         <service
             android:name=".tiles.BedtimeTileService"
@@ -140,6 +144,10 @@
             </intent-filter>
             <meta-data
                 android:name="android.service.quicksettings.TOGGLEABLE_TILE"
+                android:value="true" />
+            <!-- Redrawn when Wellmute asks (tiles/TileUpdates.kt), so it's right even with the panel closed. -->
+            <meta-data
+                android:name="android.service.quicksettings.ACTIVE_TILE"
                 android:value="true" />
         </service>
         <!-- Counts and filters notifications. Granted by the user in Settings → Notification access. -->
